@@ -1,0 +1,10 @@
+const AUTH_ACTION_TYPES = {
+  ERROR: 'ERROR',
+  REGISTER: 'REGISTER',
+  SIGN_IN: 'SIGN_IN',
+  SIGN_OUT: 'SIGN_OUT',
+};
+
+export {
+  AUTH_ACTION_TYPES,
+};
