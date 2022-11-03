@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Backend.Entities;
 
-namespace Backend.Entities.Context
+namespace Backend.DataAccess
 {
     public partial class test_boilerplateContext : DbContext
     {
