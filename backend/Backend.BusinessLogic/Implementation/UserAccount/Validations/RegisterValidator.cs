@@ -50,7 +50,7 @@ namespace Backend.BusinessLogic.Implementation.UserAccount.Validations
 
         public bool UsernameDoesntAlreadyExists(string username)
         {
-            return !_unitOfWork.Users.Get().Any(u => u.Username == username);
+            return !_unitOfWork.Users.Get().Any(u => u.UserName == username);
         }
     }
 }

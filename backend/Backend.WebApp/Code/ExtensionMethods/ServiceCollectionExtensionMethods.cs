@@ -36,12 +36,19 @@ namespace Backend.WebApp.Code.ExtensionMethods
 
                 var userIdClaim = claims?.FirstOrDefault(c => c.Type == "Id")?.Value;
                 var isParsingSuccessful = Guid.TryParse(userIdClaim, out Guid id);
-                
+                var usernameClaim = claims?.FirstOrDefault(c => c.Type == "UserName")?.Value;
+                var nameClaim = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+                var emailClaim = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+                //var rolesClaim = claims?.Where(c => c.Type == ClaimTypes.Role)?.Select(c => c.Value).ToList();
+
+
                 return new CurrentUserDto
                 {
                     Id = id,
                     IsAuthenticated = httpContext.User.Identity.IsAuthenticated,
-                    Email = httpContext.User.Identity.Name
+                    Name = nameClaim,
+                    Username = usernameClaim,
+                    Email = emailClaim,
                 };
             });
 

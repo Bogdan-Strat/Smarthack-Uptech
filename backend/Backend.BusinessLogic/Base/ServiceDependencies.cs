@@ -10,11 +10,11 @@ namespace Backend.BusinessLogic.Base
         public UnitOfWork UnitOfWork { get; set; }
         public CurrentUserDto CurrentUser { get; set; }
 
-        public ServiceDependencies(IMapper mapper, UnitOfWork unitOfWork)//, CurrentUserDto currentUser)
+        public ServiceDependencies(IMapper mapper, UnitOfWork unitOfWork, CurrentUserDto currentUser)
         {
             Mapper = mapper;
             UnitOfWork = unitOfWork;
-            //CurrentUser = currentUser;
+            CurrentUser = currentUser;
         }
     }
 }

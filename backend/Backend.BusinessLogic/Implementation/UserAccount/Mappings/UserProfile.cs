@@ -18,7 +18,7 @@ namespace Backend.BusinessLogic.Implementation.UserAccount.Mappings
                 .ForMember(a => a.Salt, r => r.MapFrom(s => Guid.NewGuid()))
                 .ForMember(a => a.Password, r => r.Ignore())
                 .ForMember(a => a.Email, r => r.MapFrom(s => s.Email))
-                .ForMember(a => a.Username, r => r.MapFrom(s => s.Username))
+                .ForMember(a => a.UserName, r => r.MapFrom(s => s.Username))
                 ;
         }
     }

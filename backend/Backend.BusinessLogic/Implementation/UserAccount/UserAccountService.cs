@@ -46,7 +46,9 @@ namespace Backend.BusinessLogic
                         Id = Guid.NewGuid(),
                         Email = model.Email,
                         Salt = Guid.NewGuid(),
-                        Username = model.Username
+                        UserName = model.Username,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
                     };
 
                     user.Password = model.Password.HashPassword((Guid)user.Salt);
@@ -90,7 +92,8 @@ namespace Backend.BusinessLogic
             {
                 Id = user.Id,
                 Email = user.Email,
-                Username = user.Username,
+                Name = user.FirstName + " " + user.LastName,
+                Username = user.UserName,
                 IsAuthenticated = true,
             };
 

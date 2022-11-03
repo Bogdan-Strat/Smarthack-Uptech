@@ -29,7 +29,7 @@ namespace Backend.WebApp.Controllers
                 await utils.LogIn(user, HttpContext);
                 obj.CurrentUser = user;
             }
-
+            var x = CurrentUser;
             return Ok(obj);
         }
 
@@ -45,12 +45,12 @@ namespace Backend.WebApp.Controllers
             return Ok(user);
         }
 
-        /*[HttpGet("getCurrentUser")]
+        [HttpGet("getCurrentUser")]
         [Authorize(AuthenticationSchemes = "BackendCookies")]
         public IActionResult GetCurrent()
         {
             return Ok(CurrentUser);
-        }*/
+        }
 
     }
 }
