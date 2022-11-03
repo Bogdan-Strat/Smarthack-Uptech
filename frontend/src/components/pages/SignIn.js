@@ -1,4 +1,6 @@
 import React from 'react';
+import {useState} from 'react';
+import axios from 'axios';
 import {
   Flex,
   Box,
@@ -15,6 +17,25 @@ import {
 } from '@chakra-ui/react';
 
 const SignIn = () => {
+  const [newUser, setNewUser] = useState({
+    email: '',
+    password: '',
+  });
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    let data = {};
+    axios
+        .post('https://localhost:7132/UserAccount/login', newUser)
+        .then((res) => {
+          data = res.data;
+          setNewUser({
+            email: '',
+            password: '',
+          });
+          console.log(data);
+        });
+  };
   return (
     <Flex
       minH={'100vh'}
@@ -36,11 +57,11 @@ const SignIn = () => {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input type="email" value={newUser.email} onChange={(e) => setNewUser({...newUser, email: e.target.value})}/>
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <Input type="password" value={newUser.password} onChange={(e) => setNewUser({...newUser, password: e.target.value})}/>
             </FormControl>
             <Stack spacing={10}>
               <Stack
@@ -50,7 +71,7 @@ const SignIn = () => {
                 <Checkbox>Remember me</Checkbox>
                 <Link color={'blue.400'}>Forgot password?</Link>
               </Stack>
-              <Button
+              <Button onClick={submitHandler}
                 bg={'blue.400'}
                 color={'white'}
                 _hover={{

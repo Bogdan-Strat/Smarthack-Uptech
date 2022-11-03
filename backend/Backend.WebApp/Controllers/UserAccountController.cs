@@ -34,9 +34,9 @@ namespace Backend.WebApp.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login([FromBody] LogInModel model)
         {
-            var user = _service.Login(email, password);
+            var user = _service.Login(model.Email, model.Password);
             if (user.IsAuthenticated)
             {
                 await utils.LogIn(user, HttpContext);
