@@ -1,12 +1,20 @@
-// import { AUTH_ACTION_TYPES } from '../types.js';
+import {AUTH_ACTION_TYPES} from '../types';
 
 export const AuthState = {
   authenticated: false,
-  restoreBusy: true,
-  userId: undefined,
+  currentUser: undefined,
+  token: undefined,
 };
 
 const authReducer = (state = AuthState, action) => {
+  switch (action.type) {
+    case AUTH_ACTION_TYPES.SIGN_UP:
+      return {
+        authenticated: true,
+        currentUser: action.payload,
+        token: action.payload?.id,
+      };
+  }
   return state;
 };
 
