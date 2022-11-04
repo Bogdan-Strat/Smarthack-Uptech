@@ -22,6 +22,7 @@ builder.Services.AddDbContext<test_boilerplateContext>(options =>
 
 builder.Services.AddScoped<UnitOfWork>();
 
+builder.Services.AddHttpClient();
 
 builder.Services.AddPresentation();
 

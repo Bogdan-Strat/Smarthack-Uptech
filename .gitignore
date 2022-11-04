@@ -352,3 +352,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+#Remove secret info
+/backend/Backend.Common/Constants/Constants.cs
