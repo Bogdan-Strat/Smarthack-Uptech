@@ -14,12 +14,13 @@ module.exports = {
     'sourceType': 'module',
   },
   'plugins': [
-    "react",
+    'react',
   ],
   'rules': {
     'require-jsdoc': 0,
     'max-len': ['error', {'code': 350}],
     'react/prop-types': 'off',
     'react/no-unused-vars': 'off',
+    'linebreak-style': 'off',
   },
 };
