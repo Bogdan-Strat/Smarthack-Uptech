@@ -24,27 +24,23 @@ namespace Backend.WebApp.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterUserModel model)
         {
-            var obj = _service.RegisterNewUser(model);
-            if (obj.Errors.Count == 0)
+            _service.RegisterNewUser(model);
+            var loginModel = new LogInModel()
             {
-                var user = _service.Login(model.Email, model.Password);
-                await utils.LogIn(user, HttpContext);
-                obj.CurrentUser = user;
-            }
-            var x = CurrentUser;
-            return Ok(obj);
+                Email = model.Email,
+                Password = model.Password
+            };
+            var user = await _service.Login(loginModel);
+
+            return Ok(user);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LogInModel model)
         {
-            var user = _service.Login(model.Email, model.Password);
-            if (user.IsAuthenticated)
-            {
-                await utils.LogIn(user, HttpContext);
-            }
+            var user = await _service.Login(model);
 
-            return Ok(user);
+             return Ok(user);
         }
     }
 }

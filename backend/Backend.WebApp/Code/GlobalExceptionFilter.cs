@@ -20,7 +20,7 @@ namespace Backend.WebApp.Code
         public override void OnException(ExceptionContext context)
         {
             context.ExceptionHandled = true;
-
+            var descriptor = context.ActionDescriptor as ControllerActionDescriptor;
             switch (context.Exception)
             {
                 case NotFoundErrorException notFound:
@@ -42,11 +42,19 @@ namespace Backend.WebApp.Code
                         context.ModelState.AddModelError(validationResult.PropertyName, validationResult.ErrorMessage);
                     }
 
-                    var descriptor = context.ActionDescriptor as ControllerActionDescriptor;
-                    context.Result = new ViewResult
-                    {
-                        ViewName = $"Views/{descriptor.ControllerName}/{descriptor.ActionName}.cshtml"
-                    };
+                    //var hasRequestedWithHeader = context.HttpContext.Request.Headers.TryGetValue("X-Requested-With", out var requestedWithHeaderValue);
+
+                    /*if ((hasRequestedWithHeader && requestedWithHeaderValue == "XMLHttpRequest") )*/
+                    
+                        //context.Result = new StatusCodeResult(StatusCodes.Status412PreconditionFailed);
+                        context.Result = new ObjectResult(validationError.ValidationResult.Errors.Select(e => new { e.PropertyName, e.ErrorMessage }))
+                        {
+                            StatusCode = StatusCodes.Status412PreconditionFailed
+                        };
+                    
+
+
+                    
                     break;
                 default:
                     context.Result = new ViewResult
