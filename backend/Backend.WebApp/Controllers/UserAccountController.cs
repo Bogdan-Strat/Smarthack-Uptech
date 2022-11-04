@@ -1,7 +1,9 @@
 ﻿using Backend.BusinessLogic;
 using Backend.BusinessLogic.Implementation.UserAccount.Models;
+using Backend.Common.DTOs;
 using Backend.WebApp.Code.Base;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using WorkoutBuddy.WebApp.Code.Utils;
 
@@ -44,13 +46,5 @@ namespace Backend.WebApp.Controllers
 
             return Ok(user);
         }
-
-        [HttpGet("getCurrentUser")]
-        [Authorize(AuthenticationSchemes = "BackendCookies")]
-        public IActionResult GetCurrent()
-        {
-            return Ok(CurrentUser);
-        }
-
     }
 }

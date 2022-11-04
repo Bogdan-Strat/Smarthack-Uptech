@@ -47,11 +47,11 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
     }));
 
 var app = builder.Build();
-
+app.UseSwagger();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+   
     app.UseSwaggerUI();
 }
 

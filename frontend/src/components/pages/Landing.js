@@ -12,7 +12,6 @@ import {
 import {ReactComponent as OutlinedRightArrow} from '../../assets/icons/outlined-right-arrow.svg';
 import ROUTES from '../../utils/Routes.js';
 import {useTranslation} from 'react-i18next';
-
 const Landing = () => {
   const {t} = useTranslation();
   return (
@@ -27,7 +26,8 @@ const Landing = () => {
             fontWeight={600}
             fontSize={{base: '2xl', sm: '4xl', md: '6xl'}}
             lineHeight={'110%'}>
-            Make money from <br />
+            M
+            ake money from <br />
             <Text as={'span'} color={'green.400'}>
               your audience
             </Text>
