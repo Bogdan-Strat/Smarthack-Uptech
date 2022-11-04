@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import {
   Flex,
   Box,
@@ -19,8 +18,10 @@ import {
 import {useState} from 'react';
 import ROUTES from '../../utils/Routes.js';
 import {ViewIcon, ViewOffIcon} from '@chakra-ui/icons';
+import {signUp as signUpAction} from '../../state/actions/auth.js';
+import {connect} from 'react-redux';
 
-export default function Signup() {
+function Signup({signUp}) {
   const [showPassword, setShowPassword] = useState(false);
   const [newUser, setNewUser] = useState({
     firstName: '',
@@ -30,23 +31,9 @@ export default function Signup() {
     password: '',
   });
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-
-    let data = {};
-    axios
-        .post('https://localhost:7132/UserAccount/register', newUser)
-        .then((res) => {
-          data = res.data;
-          setNewUser({
-            firstName: '',
-            lastName: '',
-            username: '',
-            email: '',
-            password: '',
-          });
-          console.log(data);
-        });
+    signUp(newUser);
   };
 
   return (
@@ -165,3 +152,17 @@ export default function Signup() {
     </Flex>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    signUp: (user) => dispatch(signUpAction(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
