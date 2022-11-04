@@ -4,6 +4,7 @@ using Backend.BusinessLogic.Implementation.UserAccount.Validations;
 using Backend.Common.DTOs;
 using Backend.Common.Extensions;
 using Backend.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,78 +16,53 @@ namespace Backend.BusinessLogic
     public class UserAccountService : BaseService
     {
         private readonly RegisterValidator registerValidator;
+        private readonly LoginValidator loginValidator;
         public UserAccountService(ServiceDependencies serviceDependencies) : base(serviceDependencies)
         {
             this.registerValidator = new RegisterValidator(UnitOfWork);
+            this.loginValidator = new LoginValidator(UnitOfWork);
         }
 
-        public ServiceObjectModel RegisterNewUser(RegisterUserModel model)
+        public void RegisterNewUser(RegisterUserModel model)
         {
             ServiceObjectModel returnObj = new ServiceObjectModel();
             ExecuteInTransaction(uow =>
             {
-                var res = registerValidator.Validate(model);
-                if (!res.IsValid)
+                registerValidator.Validate(model).ThenThrow();
+
+                var user = new User()
                 {
-                    var errorObject = new List<Tuple<string, string>>();
+                    Id = Guid.NewGuid(),
+                    Email = model.Email,
+                    Salt = Guid.NewGuid(),
+                    UserName = model.Username,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                };
 
-                    foreach (var error in res.Errors)
-                    {
-                        errorObject.Add(new Tuple<string, string>(error.PropertyName, error.ErrorMessage));
-                    }
+                user.Password = model.Password.HashPassword((Guid)user.Salt);
 
-                    returnObj.Errors = errorObject;
-                }
-                else
-                {
-                    //de rezolvat automapperul
-                    //var user = Mapper.Map<RegisterUserModel, User>(model);
-                    var user = new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Email = model.Email,
-                        Salt = Guid.NewGuid(),
-                        UserName = model.Username,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                    };
+                uow.Users.Insert(user);
 
-                    user.Password = model.Password.HashPassword((Guid)user.Salt);
-
-                    uow.Users.Insert(user);
-
-                    uow.SaveChanges();
-                }
+                uow.SaveChanges();
             });
-
-            return returnObj;
         }
 
-        public CurrentUserDto Login(string email, string password)
+        public async Task<CurrentUserDto> Login(LogInModel model)
         {
+            (await loginValidator.ValidateAsync(model)).ThenThrow();
+
             var currentUser = new CurrentUserDto();
 
-            var user = UnitOfWork.Users.Get()
-                        .FirstOrDefault(u => u.Email == email);
-
-            if (user == null)
-            {
-                currentUser = new CurrentUserDto { IsAuthenticated = false };
-            }
-
-            var passwordHash = password.HashPassword((Guid)user.Salt);
-            if (!passwordHash.SequenceEqual(user.Password))
-            {
-                currentUser = new CurrentUserDto { IsAuthenticated = false };
-            }
+            var user = await UnitOfWork.Users.Get()
+                        .FirstOrDefaultAsync(u => u.Email == model.Email);
+          
 
             /*var userRoles = UnitOfWork.Users.Get()
                             .Where(u => u.Id == user.Id)
                             .SelectMany(u => u.Idroles.Select(r => r.Name))
                             .ToList();*/
-
-            /*uow.Users.Update(user);
-            uow.SaveChanges();*/
+             
 
             currentUser = new CurrentUserDto
             {
