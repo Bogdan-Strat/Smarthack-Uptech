@@ -14,7 +14,7 @@ module.exports = {
     'sourceType': 'module',
   },
   'plugins': [
-    'react',
+    "react", "only-warn"
   ],
   'rules': {
     'require-jsdoc': 0,
