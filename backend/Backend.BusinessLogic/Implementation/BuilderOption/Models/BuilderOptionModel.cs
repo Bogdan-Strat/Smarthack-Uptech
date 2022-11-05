@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Backend.BusinessLogic.Implementation.Models
+namespace Backend.BusinessLogic.BuilderOption.Models
 {
     public class BuilderOptionModel : IEntity
     {
