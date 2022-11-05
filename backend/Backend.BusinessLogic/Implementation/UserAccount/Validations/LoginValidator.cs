@@ -31,7 +31,7 @@ namespace Backend.BusinessLogic.Implementation.UserAccount.Validations
 
         public async Task<bool> IsPasswordCorrect(string email, string password)
         {
-            var user = await _unitOfWork.Users
+            var user = await _unitOfWork.Recruiters
                 .Get()
                 .FirstOrDefaultAsync(u => u.Email == email);
 
@@ -47,11 +47,11 @@ namespace Backend.BusinessLogic.Implementation.UserAccount.Validations
 
         public bool EmailDoesntAlreadyExists(string email)
         {
-            var emails = _unitOfWork.Users
+            var emails = _unitOfWork.Recruiters
                 .Get()
                 .Select(u => u.Email)
                 .ToList();
-            return _unitOfWork.Users.Get().Any(u => u.Email == email);
+            return _unitOfWork.Recruiters.Get().Any(u => u.Email == email);
         }
     }
 }
