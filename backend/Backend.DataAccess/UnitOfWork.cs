@@ -12,6 +12,9 @@ namespace Backend.DataAccess
             Context = context;
         }
 
+        private IRepository<BuilderOption> builderOptions;
+        public IRepository<BuilderOption> BuilderOptions => builderOptions ?? (builderOptions = new BaseRepository<BuilderOption>(Context));
+
         private IRepository<Company> companies;
         public IRepository<Company> Companies => companies ?? (companies = new BaseRepository<Company>(Context));
 
