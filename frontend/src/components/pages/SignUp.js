@@ -131,7 +131,7 @@ function Signup({signUp}) {
               <Button
                 loadingText="Submitting"
                 size="lg"
-                bg={'blue.400'}
+                bg={'primary.300'}
                 color={'white'}
                 _hover={{
                   bg: 'blue.500',
