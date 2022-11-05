@@ -25,24 +25,25 @@ namespace Backend.BusinessLogic
 
         public void RegisterNewUser(RegisterUserModel model)
         {
-            ServiceObjectModel returnObj = new ServiceObjectModel();
             ExecuteInTransaction(uow =>
             {
                 registerValidator.Validate(model).ThenThrow();
 
-                var user = new User()
+                var recruiter = new Recruiter()
                 {
-                    Id = Guid.NewGuid(),
+                    RecruiterId = Guid.NewGuid(),
                     Email = model.Email,
                     Salt = Guid.NewGuid(),
-                    UserName = model.Username,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
+                    CompanyId = Guid.Parse("e7ce478e-e34a-4b6f-bd90-d8b879c8e966"),
+                    RoleId = 1,
+                    IsLoggedFirstTime = false
                 };
 
-                user.Password = model.Password.HashPassword((Guid)user.Salt);
+                recruiter.Password = model.Password.HashPassword((Guid)recruiter.Salt);
 
-                uow.Users.Insert(user);
+                uow.Recruiters.Insert(recruiter);
 
                 uow.SaveChanges();
             });
@@ -54,22 +55,17 @@ namespace Backend.BusinessLogic
 
             var currentUser = new CurrentUserDto();
 
-            var user = await UnitOfWork.Users.Get()
+            var recruiter = await UnitOfWork.Recruiters.Get()
+                        .Include(r => r.Role)
                         .FirstOrDefaultAsync(u => u.Email == model.Email);
           
 
-            /*var userRoles = UnitOfWork.Users.Get()
-                            .Where(u => u.Id == user.Id)
-                            .SelectMany(u => u.Idroles.Select(r => r.Name))
-                            .ToList();*/
-             
-
             currentUser = new CurrentUserDto
             {
-                Id = user.Id,
-                Email = user.Email,
-                Name = user.FirstName + " " + user.LastName,
-                Username = user.UserName,
+                Id = recruiter.RecruiterId,
+                Email = recruiter.Email,
+                Name = recruiter.FirstName + " " + recruiter.LastName,
+                Role = recruiter.Role.Role1,
                 IsAuthenticated = true,
             };
 

@@ -47,7 +47,6 @@ namespace Backend.WebApp.Code.ExtensionMethods
                     Id = id,
                     IsAuthenticated = httpContext.User.Identity.IsAuthenticated,
                     Name = nameClaim,
-                    Username = usernameClaim,
                     Email = emailClaim,
                 };
             });

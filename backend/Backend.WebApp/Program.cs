@@ -15,7 +15,7 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddDbContext<test_boilerplateContext>(options =>
+builder.Services.AddDbContext<uptechdbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });

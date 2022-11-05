@@ -24,10 +24,6 @@ namespace Backend.BusinessLogic.Implementation.UserAccount.Validations
                 .Must(PasswordRegexTest).WithMessage("The password must contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number")
                 .NotEmpty().WithMessage("Required field");
 
-            RuleFor(r => r.Username)
-                .Must(UsernameDoesntAlreadyExists).WithMessage("There is another account using this username, please use another one!")
-                .NotEmpty().WithMessage("Required field");
-
             _unitOfWork = unitOfWork;
         }
 
@@ -45,12 +41,8 @@ namespace Backend.BusinessLogic.Implementation.UserAccount.Validations
 
         public bool EmailDoesntAlreadyExists(string email)
         {
-            return !_unitOfWork.Users.Get().Any(u => u.Email == email);
+            return !_unitOfWork.Recruiters.Get().Any(u => u.Email == email);
         }
 
-        public bool UsernameDoesntAlreadyExists(string username)
-        {
-            return !_unitOfWork.Users.Get().Any(u => u.UserName == username);
-        }
     }
 }

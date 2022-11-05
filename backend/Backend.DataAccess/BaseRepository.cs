@@ -6,9 +6,9 @@ namespace Backend.DataAccess
     public class BaseRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity
     {
-        private readonly test_boilerplateContext Context;
+        private readonly uptechdbContext Context;
 
-        public BaseRepository(test_boilerplateContext context)
+        public BaseRepository(uptechdbContext context)
         {
             Context = context;
         }
