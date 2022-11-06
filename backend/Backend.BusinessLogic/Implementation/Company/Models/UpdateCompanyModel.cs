@@ -14,6 +14,6 @@ namespace Backend.BusinessLogic.Implementation.Company.Models
         public string Description { get; set; } = null!;
         public string Logo { get; set; } = null!;
 
-        public List<int> BuilderOptionIds { get; set; }
+        public string BuilderOptionIds { get; set; }
     }
 }
