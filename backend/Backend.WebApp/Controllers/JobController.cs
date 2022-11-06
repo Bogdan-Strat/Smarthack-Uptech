@@ -24,5 +24,17 @@ namespace Backend.WebApp.Controllers
 
             return Ok();
         }
+
+        [HttpGet("getJobTypes")]
+        public async Task<IActionResult> GetJobTypes()
+        {
+            return Ok(await JobService.GetJobTypes());
+        }
+
+        [HttpGet("getJobLevels")]
+        public async Task<IActionResult> GetJobLevels()
+        {
+            return Ok(await JobService.GetJobLevels());
+        }
     }
 }
