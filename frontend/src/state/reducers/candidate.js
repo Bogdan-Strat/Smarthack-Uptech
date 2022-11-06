@@ -9,7 +9,6 @@ export const CandidateState = {
 const candidateReducer = (state = CandidateState, action) => {
   switch (action.type) {
     case CANDIDATE_ACTION_TYPES.TOKEN_IS_VALID: {
-      debugger;
       return {
         authenticated: true,
         currentCandidate: action.payload,

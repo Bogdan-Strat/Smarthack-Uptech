@@ -3,6 +3,7 @@ using Backend.BusinessLogic.Implementation.Jobs.Models;
 using Backend.WebApp.Code.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace Backend.WebApp.Controllers
 {
@@ -35,6 +36,20 @@ namespace Backend.WebApp.Controllers
         public async Task<IActionResult> GetJobLevels()
         {
             return Ok(await JobService.GetJobLevels());
+        }
+
+        [HttpGet("getAllJobs")]
+        public async Task<IActionResult> GetAllJobs()
+        {
+            var models = await JobService.GetAllJobs();
+            return Ok(models);
+        }
+
+        [HttpGet("getMyJobs")]
+        public async Task<IActionResult> GetMyJobs(string email)
+        {
+            var models = await JobService.GetMyJobs(email);
+            return Ok(models);
         }
     }
 }
