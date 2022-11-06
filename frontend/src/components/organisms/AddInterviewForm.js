@@ -13,17 +13,25 @@ import {
 const AddInterviewForm = () => {
   const [recruiters, setRecruiters] = useState([]);
   const [newInterview, setNewInterview] = useState({
-    recruiter: "",
-    startDate: "",
-    endDate: "",
-    candidateEmail: "",
+    recruiter: '',
+    startDate: '',
+    endDate: '',
+    candidateEmail: '',
+    interviewLink: '',
   });
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
-    console.log(newInterview);
-  }
+    const res = await fetch(`${BASE_URL}/Interview/addInterview`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({...newInterview, hRIntiator: '52556B27-BF51-4294-8848-259A54B26D63'}),
+      });
+      const data = await res.json();
+      setRecruiters(data);
+  };
 
   useEffect(() => {
     const fetchRecruiters = async () => {
@@ -147,6 +155,31 @@ const AddInterviewForm = () => {
         <Input
           value={newInterview.candidateEmail}
           onChange={(e) => setNewInterview({...newInterview, candidateEmail: e.target.value})}
+          type="email"
+          id="candidate"
+          focusBorderColor="brand.400"
+          shadow="sm"
+          size="sm"
+          w="full"
+          rounded="md"
+        />
+      </FormControl>
+      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+        <FormLabel
+          htmlFor="link"
+          fontSize="sm"
+          fontWeight="md"
+          color="gray.700"
+          _dark={{
+            color: 'gray.50',
+          }}
+          mt="2%"
+        >
+          Interview link
+        </FormLabel>
+        <Input
+          value={newInterview.interviewLink}
+          onChange={(e) => setNewInterview({...newInterview, interviewLink: e.target.value})}
           type="email"
           id="candidate"
           focusBorderColor="brand.400"

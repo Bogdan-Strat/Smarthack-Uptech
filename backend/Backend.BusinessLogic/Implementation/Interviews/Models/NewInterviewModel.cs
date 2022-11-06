@@ -13,5 +13,6 @@ namespace Backend.BusinessLogic.Implementation.Interviews
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public string CandidateEmail { get; set; }
+        public string InterviewLink { get; set; }
     }
 }
