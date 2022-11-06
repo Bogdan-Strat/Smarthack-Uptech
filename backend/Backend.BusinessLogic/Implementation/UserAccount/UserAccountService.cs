@@ -27,7 +27,7 @@ namespace Backend.BusinessLogic
         {
             ExecuteInTransaction(uow =>
             {
-                registerValidator.Validate(model).ThenThrow();
+                //registerValidator.Validate(model).ThenThrow();
 
                 var recruiter = new Recruiter()
                 {

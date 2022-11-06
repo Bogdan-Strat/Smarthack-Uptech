@@ -10,6 +10,7 @@ import SignInPage from './components/pages/SignIn.js';
 import HomePage from './components/pages/Home.js';
 import {connect} from 'react-redux';
 import PrivateRoute from './components/PrivateRoute.js';
+import CompanyDetailSetup from './components/pages/CompanyDetailSetup.js';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path={ROUTES.SIGN_IN} element={<SignInPage/>}/>
           <Route path={ROUTES.SIGN_UP} element={<SignUpPage/>}/>
           <Route path={ROUTES.HOME} element={<PrivateRoute><HomePage/></PrivateRoute>}/>
+          <Route path={ROUTES.SETUP} element={<PrivateRoute><CompanyDetailSetup/></PrivateRoute>}/>
           {/*  <Route path={`${ROUTES.PROFILE}/:uid`} element={<PrivateRoute><Profile/></PrivateRoute>} />  */}
         </Routes>
       </div>
