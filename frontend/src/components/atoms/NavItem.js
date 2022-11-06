@@ -30,7 +30,7 @@ export default function NavItem({icon, url, children, ...otherProps}) {
           />
         )}
         <Text fontSize="sm">
-        {children}
+          {children}
         </Text>
       </Flex>
     </Link>

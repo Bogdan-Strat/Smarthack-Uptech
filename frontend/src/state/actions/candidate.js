@@ -34,7 +34,7 @@ const getCandidates = () =>
         });
   };
 
-const getJobsByEmail = (email) => 
+const getJobsByEmail = (email) =>
   async (dispatch) => {
     axios.get(`${BASE_URL}/Candidate/getAllCandidates`, convertToFormdata({email}))
         .then((res) => {
@@ -47,8 +47,29 @@ const getJobsByEmail = (email) =>
         });
   };
 
+const getCV = (token) =>
+  async (dispatch) => {
+    const res = await fetch(`${BASE_URL}/Image/transform`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(token),
+    });
+    const data = await res.json();
+    dispatch({
+      type: CANDIDATE_ACTION_TYPES.SET_PHOTO,
+      payload: {
+        photo: data,
+        token,
+      },
+    });
+  };
+
+
 export {
   validateToken,
   getCandidates,
   getJobsByEmail,
+  getCV,
 };

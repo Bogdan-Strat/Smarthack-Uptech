@@ -21,7 +21,7 @@ const CandidateInfo = ({candidate, viewCandidate}) => {
         _hover={{
           bg: 'primary.500',
         }}
-      
+
       >
         View candidate
       </Button> */}

@@ -11,13 +11,14 @@ import {useTranslation} from 'react-i18next';
 import {connect} from 'react-redux';
 import {getJobsByEmail} from '../../state/actions/candidate';
 import AvatarInfo from '../molecules/AvatarInfo';
+import {getCV} from '../../state/actions/candidate';
 
-const CandidateExtendedInfo = ({candidateToken, candidate, goBack, getJobsByEmail}) => {
+const CandidateExtendedInfo = ({candidateToken, candidate, goBack, getCV, getJobsByEmail}) => {
   const {t} = useTranslation();
-  const [photo, setPhoto] = useState(undefined);
   useEffect(() => {
     if (candidate?.email) {
       getJobsByEmail(candidate.email);
+      // getCV(candidateToken);
     }
   }, [candidate]);
   return (
@@ -25,6 +26,7 @@ const CandidateExtendedInfo = ({candidateToken, candidate, goBack, getJobsByEmai
       <Flex direction="row" alignItems="center">
         <AvatarInfo candidate={candidate}/>
       </Flex>
+      {/* <img src={candidate?.photo}/> */}
       <Button
         size="lg"
         borderRadius="xl"
@@ -52,6 +54,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     getJobsByEmail: (email) => dispatch(getJobsByEmail(email)),
+    getCV: (token) => dispatch(getCV(token)),
   };
 };
 
