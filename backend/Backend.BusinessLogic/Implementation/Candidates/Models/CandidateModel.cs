@@ -17,7 +17,6 @@ namespace Backend.BusinessLogic.Implementation.Candidates.Models
 
         public string JobTitle { get; set; }
         public string JobDescription { get; set; }
-        public string Cv { get; set; }
 
     }
 }

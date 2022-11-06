@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { BASE_URL } from "../../utils/constants";
-
+import React, {useEffect, useState} from 'react';
+import {BASE_URL} from '../../utils/constants';
 import {
   FormControl,
   Heading,
@@ -8,20 +7,32 @@ import {
   Select,
   Input,
   GridItem,
-} from "@chakra-ui/react";
+  Button,
+} from '@chakra-ui/react';
 
 const AddInterviewForm = () => {
   const [recruiters, setRecruiters] = useState([]);
-  const [chosenRecruiters, setChosenRecruiters] = useState([]);
+  const [newInterview, setNewInterview] = useState({
+    recruiter: "",
+    startDate: "",
+    endDate: "",
+    candidateEmail: "",
+  });
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    console.log(newInterview);
+  }
 
   useEffect(() => {
     const fetchRecruiters = async () => {
       const res = await fetch(`${BASE_URL}/Recruiter/fetchRecruiters`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify("52556B27-BF51-4294-8848-259A54B26D63"),
+        body: JSON.stringify('52556B27-BF51-4294-8848-259A54B26D63'),
       });
       const data = await res.json();
       setRecruiters(data);
@@ -29,9 +40,10 @@ const AddInterviewForm = () => {
     fetchRecruiters();
   }, []);
 
+
   return (
     <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
+      <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
         New interview form
       </Heading>
       <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -41,12 +53,14 @@ const AddInterviewForm = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: "gray.50",
+            color: 'gray.50',
           }}
         >
           Recruiters
         </FormLabel>
         <Select
+          value={newInterview.recruiter}
+          onChange={(e) => setNewInterview({...newInterview, recruiter: e.target.value})}
           id="recruiters"
           placeholder="Select option"
           focusBorderColor="brand.400"
@@ -72,13 +86,15 @@ const AddInterviewForm = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: "gray.50",
+            color: 'gray.50',
           }}
           mt="2%"
         >
           Start date
         </FormLabel>
         <Input
+          value={newInterview.startDate}
+          onChange={(e) => setNewInterview({...newInterview, startDate: e.target.value})}
           type="date"
           id="start_date"
           focusBorderColor="brand.400"
@@ -96,13 +112,15 @@ const AddInterviewForm = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: "gray.50",
+            color: 'gray.50',
           }}
           mt="2%"
         >
           End date
         </FormLabel>
         <Input
+          value={newInterview.endDate}
+          onChange={(e) => setNewInterview({...newInterview, endDate: e.target.value})}
           type="date"
           id="end_date"
           focusBorderColor="brand.400"
@@ -120,13 +138,15 @@ const AddInterviewForm = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: "gray.50",
+            color: 'gray.50',
           }}
           mt="2%"
         >
           Candidate email
         </FormLabel>
         <Input
+          value={newInterview.candidateEmail}
+          onChange={(e) => setNewInterview({...newInterview, candidateEmail: e.target.value})}
           type="email"
           id="candidate"
           focusBorderColor="brand.400"
@@ -135,6 +155,11 @@ const AddInterviewForm = () => {
           w="full"
           rounded="md"
         />
+      </FormControl>
+      <FormControl>
+        <Button onClick={submitHandler}>
+            Submit
+        </Button>
       </FormControl>
     </>
   );
