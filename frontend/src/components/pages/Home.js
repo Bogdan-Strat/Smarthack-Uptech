@@ -1,10 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SidebarWithHeader from '../organisms/SidebarWithHeader';
+import Calendar from 'react-calendar';
+import { 
+  Box
+} from '@chakra-ui/react';
 
-const JobListings = (props) => {
+const Home = (props) => {
+  const [value, setValue] = useState(new Date());
+  const onChange = (val) => {
+    setValue(val);
+  };
   return <SidebarWithHeader>
-    <h1>Home page</h1>
+    <Box>
+      <Calendar onChange={onChange} value={value} />
+    </Box>
   </SidebarWithHeader>;
 };
 
-export default JobListings;
+export default Home;

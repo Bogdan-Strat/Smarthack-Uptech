@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {BASE_URL} from '../../utils/constants';
 import {CANDIDATE_ACTION_TYPES} from '../types';
 
@@ -18,4 +19,20 @@ const validateToken = (token) => async (dispatch) => {
   } catch (e) {}
 };
 
-export {validateToken};
+const getCandidates = () =>
+  async (dispatch) => {
+    axios.get(`${BASE_URL}/Candidate/getAllCandidates`)
+        .then((res) => {
+          const data = res.data;
+          console.log(data);
+          dispatch({
+            type: CANDIDATE_ACTION_TYPES.READ,
+            payload: data,
+          });
+        });
+  };
+
+export {
+  validateToken,
+  getCandidates,
+};
