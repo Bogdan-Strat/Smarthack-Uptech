@@ -1,9 +1,11 @@
 ﻿using Backend.BusinessLogic.Base;
+using Backend.BusinessLogic.BuilderOption.Models;
 using Backend.BusinessLogic.Implementation.Company.Models;
 using Backend.BusinessLogic.Implementation.UserAccount.Validations;
 using Backend.Common.DTOs;
 using Backend.Common.Exceptions;
 using Backend.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,29 +30,69 @@ namespace Backend.BusinessLogic
                 Description = model.Description,
                 Logo = model.Logo,
             };
-
-            foreach (var optionId in model.BuilderOptionIds)
+            var length = model.BuilderOptionIds.Length;
+            var optionsIds = model.BuilderOptionIds.Substring(2, length - 4);
+            //optionsIds.Remove(optionsIds.Length - 2);
+            if (optionsIds.Length > 0)
             {
-                var builderOption = UnitOfWork.BuilderOptions.Get().FirstOrDefault(b => b.BuilderOptionId == optionId);
-                company.BuilderOptions.Add(builderOption);
+                var ids = optionsIds.Split(',');
+                var intIdsList = new List<int>();
+
+                if (ids.Any())
+                {
+                    foreach (var id in ids)
+                    {
+                        intIdsList.Add(int.Parse(id));
+                    }
+
+                    foreach (var optionId in intIdsList)
+                    {
+                        var builderOption = UnitOfWork.BuilderOptions.Get().FirstOrDefault(b => b.BuilderOptionId == optionId);
+                        company.BuilderOptions.Add(builderOption);
+                    }
+
+                    var recruiter = UnitOfWork.Recruiters.Get().FirstOrDefault(r => r.RecruiterId == model.CurrentUserId);
+
+                    if (recruiter == null)
+                    {
+                        //throw new ValidationErrorException();
+                    }
+
+                    recruiter.CompanyId = company.CompanyId;
+
+                    ExecuteInTransaction(uow =>
+                    {
+                        uow.Recruiters.Update(recruiter);
+                        uow.Companies.Insert(company);
+                        uow.SaveChanges();
+                    });
+                }
             }
 
-            var recruiter = UnitOfWork.Recruiters.Get().FirstOrDefault(r => r.RecruiterId == model.CurrentUserId);
+        }
 
-            if (recruiter == null)
+        public CompanyDetailsModel GetCompanyDetails(Guid companyId)
+        {
+            var company = UnitOfWork.Companies.Get().Include(c => c.BuilderOptions).FirstOrDefault(c => c.CompanyId == companyId);
+            var options = new List<BuilderOptionModel>();
+            foreach (var option in company.BuilderOptions)
             {
-                //throw new ValidationErrorException();
+                var optionModel = new BuilderOptionModel
+                {
+                    BuilderOptionId = option.BuilderOptionId,
+                    BuilderOptionMessage = option.BuilderOptionMessage,
+                };
+                options.Add(optionModel);
             }
-
-            recruiter.CompanyId = company.CompanyId;
-
-            ExecuteInTransaction(uow =>
+            var model = new CompanyDetailsModel
             {
-                uow.Recruiters.Update(recruiter);
-                uow.Companies.Insert(company);
-                uow.SaveChanges();
-            });
-
+                CompanyId = company.CompanyId,
+                Name = company.Name,
+                Description = company.Description,
+                Logo = company.Logo,
+                BuilderOptions = options,
+            };
+            return model;
         }
     }
 }

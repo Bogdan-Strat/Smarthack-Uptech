@@ -71,5 +71,11 @@ namespace Backend.BusinessLogic.Implementation.Candidates
 
             return model;
         }
+        /*
+        public async Task<List<CandidateModel>> GetAllCandidates()
+        {
+            var candidates = await UnitOfWork.Candidates.Get().Select
+        }
+        */
     }
 }
