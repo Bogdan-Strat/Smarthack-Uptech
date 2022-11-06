@@ -21,16 +21,27 @@ import {signIn} from '../../state/actions/auth';
 import {ViewIcon, ViewOffIcon} from '@chakra-ui/icons';
 import ROUTES from '../../utils/Routes';
 
-const SignIn = ({signIn}) => {
+const SignIn = ({signIn, isLoggedFirstTime}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [newUser, setNewUser] = useState({
     email: '',
     password: '',
   });
   const navigate = useNavigate();
+
+  const checkFirstTimeLoggedIn = () => {
+    console.log('in sign in:', isLoggedFirstTime)
+    if (isLoggedFirstTime === true) {
+      navigate(ROUTES.JOBS)
+    }
+    else {
+      navigate(ROUTES.HOME)
+    }
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
-    signIn(newUser).then(() => setTimeout(navigate(ROUTES.HOME), 0));
+    signIn(newUser).then(() => setTimeout(checkFirstTimeLoggedIn, 0));
   };
   return (
     <Flex
@@ -124,6 +135,7 @@ const SignIn = ({signIn}) => {
 const mapStateToProps = (state) => {
   return {
     authenticated: state.authReducer.authenticated,
+    isLoggedFirstTime: state.authReducer.isLoggedFirstTime,
   };
 };
 
