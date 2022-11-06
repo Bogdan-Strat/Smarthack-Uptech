@@ -10,7 +10,6 @@ function SidebarWithHeader({children}) {
     <Box minH="100vh" bg="secondary.300">
       <SidebarContent
         onClose={() => onClose}
-        display={{base: 'none', md: 'block'}}
       />
       <Drawer
         autoFocus={false}
@@ -26,7 +25,7 @@ function SidebarWithHeader({children}) {
       </Drawer>
 
       <Header onOpen={onOpen} />
-      <Box ml={{base: 0, md: 60}} p="4">
+      <Box ml={{base: 0, md: 28}} p="4">
         {children}
       </Box>
     </Box>

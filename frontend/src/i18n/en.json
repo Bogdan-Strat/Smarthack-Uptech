@@ -15,5 +15,8 @@
     "last-name-label": "Last Name",
     "email-label": "E-mail",
     "add": "Add",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "null-status": "In progress",
+    "false-status": "Status",
+    "true-status": "Hired"
 }

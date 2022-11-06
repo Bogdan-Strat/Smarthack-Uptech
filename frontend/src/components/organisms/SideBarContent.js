@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, CloseButton, Flex, Text} from '@chakra-ui/react';
+import {Box, CloseButton, Flex, Avatar} from '@chakra-ui/react';
 import {AiOutlineHome} from 'react-icons/ai';
 import {BiBriefcaseAlt} from 'react-icons/bi';
 import {TbUserSearch, TbUsers} from 'react-icons/tb';
@@ -20,25 +20,26 @@ export default function SidebarContent({onClose, ...otherProps}) {
   ];
 
   return (
-    <Box
+    <Flex
       transition="3s ease"
+      direction="column"
       bg="white.300"
       shadow="lg"
       pos="fixed"
       h="full"
       {...otherProps}>
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
-        <CloseButton display={{base: 'flex', md: 'none'}} onClick={onClose} />
+      <Flex h="20" alignItems="center" justifyContent="center">
+        <Avatar size="md" src="https://i.imgur.com/00GVjfm.png"/>
+        {/* <CloseButton display={{base: 'flex', md: 'none'}} onClick={onClose} /> */}
       </Flex>
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon} url={link.url}>
           {link.name}
         </NavItem>
       ))}
-      <SignOutButton/>
-    </Box>
+      <Box mt="auto" mb="4">
+        <SignOutButton/>
+      </Box>
+    </Flex>
   );
 };

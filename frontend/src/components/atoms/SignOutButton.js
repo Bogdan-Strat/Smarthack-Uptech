@@ -1,8 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-  Button,
+  Flex,
+  Icon,
+  Text,
 } from '@chakra-ui/react';
+import {CiLogin} from 'react-icons/ci';
 import {useNavigate} from 'react-router-dom';
 import {signOut} from '../../state/actions/auth';
 import ROUTES from '../../utils/Routes';
@@ -15,18 +18,32 @@ const SignOut = ({signOut}) => {
     setTimeout(navigate(ROUTES.LANDING), 100);
   };
   return (
-    <Button
-      size="lg"
-      borderRadius="xl"
-      bg={'primary.300'}
-      color={'white'}
-      _hover={{
-        bg: 'primary.500',
-      }}
+    <Flex
       onClick={submitHandler}
-    >
-    Sign out
-    </Button>
+      h="20"
+      p="2"
+      mt="2"
+      role="group"
+      flexDir="column"
+      alignItems="center"
+      fontSize="18"
+      cursor="pointer"
+      _hover={{
+        bg: 'primary.300',
+        color: 'white.300',
+      }}>
+      <Icon
+        my="auto"
+        fontSize="18"
+        _groupHover={{
+          color: 'white.300',
+        }}
+        as={CiLogin}
+      />
+      <Text fontSize="sm">
+        Sign Out
+      </Text>
+    </Flex>
   );
 };
 
