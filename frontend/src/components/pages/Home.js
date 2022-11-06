@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import SidebarWithHeader from '../organisms/SidebarWithHeader';
 import Calendar from 'react-calendar';
-import { 
-  Box
+import {
+  Image,
+  Box,
+  Flex
 } from '@chakra-ui/react';
 
 const Home = (props) => {
@@ -11,9 +13,11 @@ const Home = (props) => {
     setValue(val);
   };
   return <SidebarWithHeader>
-    <Box>
+    <Flex h="auto" w="auto" display="inline" borderRadius="xl">
+      <Image fit="cover" borderRadius="xl" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+        h="400px" w="100%"></Image>
       <Calendar onChange={onChange} value={value} />
-    </Box>
+    </Flex>
   </SidebarWithHeader>;
 };
 

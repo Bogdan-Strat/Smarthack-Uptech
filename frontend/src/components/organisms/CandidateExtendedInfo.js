@@ -1,43 +1,30 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Box,
   Button,
   Flex,
   Tag,
-  Text,
+  Avatar,
   Heading,
 } from '@chakra-ui/react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
+import {connect} from 'react-redux';
+import {getJobsByEmail} from '../../state/actions/candidate';
+import AvatarInfo from '../molecules/AvatarInfo';
 
-const STATUS = {
-  IN_PROGRESS: 'null',
-  REJECTED: 'false',
-  HIRED: 'true',
-};
-
-
-const STATUS_COLOR = {
-  [STATUS.IN_PROGRESS]: 'yellow',
-  [STATUS.REJECTED]: 'red',
-  [STATUS.HIRED]: 'green',
-};
-
-const CandidateExtendedInfo = ({candidate, goBack}) => {
-  const { t} = useTranslation();
-  const status = String(candidate.isPassed);
+const CandidateExtendedInfo = ({candidateToken, candidate, goBack, getJobsByEmail}) => {
+  const {t} = useTranslation();
+  const [photo, setPhoto] = useState(undefined);
+  useEffect(() => {
+    if (candidate?.email) {
+      getJobsByEmail(candidate.email);
+    }
+  }, [candidate]);
   return (
     <Flex>
-      <Box>
-        <Heading>
-          {`${candidate.firstName} ${candidate.lastName}`}
-        </Heading>
-      </Box>
-      <Tag
-        size="sm"
-        borderRadius='full'
-        variant='solid'
-        colorScheme={STATUS_COLOR[status]}
-      >{t(`${status}-status`).toUpperCase()}</Tag>
+      <Flex direction="row" alignItems="center">
+        <AvatarInfo candidate={candidate}/>
+      </Flex>
       <Button
         size="lg"
         borderRadius="xl"
@@ -54,4 +41,20 @@ const CandidateExtendedInfo = ({candidate, goBack}) => {
   );
 };
 
-export default CandidateExtendedInfo;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentUser: state.authReducer.currentUser,
+    candidate: state.candidateReducer.candidates?.find((item) => item.candidateToken === ownProps.candidateToken),
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    getJobsByEmail: (email) => dispatch(getJobsByEmail(email)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CandidateExtendedInfo);
+
+

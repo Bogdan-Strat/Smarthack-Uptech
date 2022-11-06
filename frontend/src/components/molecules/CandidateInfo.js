@@ -6,17 +6,14 @@ import {
   Text,
   Heading,
 } from '@chakra-ui/react';
+import AvatarInfo from './AvatarInfo';
 
 const CandidateInfo = ({candidate, viewCandidate}) => {
   return (
-    <Flex w="18" h="18" boxShadow='xl'>
-      <Box>
-        <Heading>
-          {`${candidate.firstName} ${candidate.lastName}`}
-        </Heading>
-        <Text>{candidate.isPassed}</Text>
-      </Box>
-      <Button
+    <Box style={{cursor: 'pointer'}} onClick={() => viewCandidate(candidate.candidateToken)}>
+      <AvatarInfo candidate={candidate} >
+      </AvatarInfo>
+      {/* <Button
         size="lg"
         borderRadius="xl"
         bg={'primary.300'}
@@ -24,11 +21,11 @@ const CandidateInfo = ({candidate, viewCandidate}) => {
         _hover={{
           bg: 'primary.500',
         }}
-        onClick={() => viewCandidate(candidate.candidateToken)}
+      
       >
         View candidate
-      </Button>
-    </Flex>
+      </Button> */}
+    </Box>
   );
 };
 

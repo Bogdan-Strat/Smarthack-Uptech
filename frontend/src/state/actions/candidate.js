@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {BASE_URL} from '../../utils/constants';
+import {convertToFormdata} from '../../utils/function';
 import {CANDIDATE_ACTION_TYPES} from '../types';
 
 const validateToken = (token, validationSetter) => async (dispatch) => {
@@ -33,7 +34,21 @@ const getCandidates = () =>
         });
   };
 
+const getJobsByEmail = (email) => 
+  async (dispatch) => {
+    axios.get(`${BASE_URL}/Candidate/getAllCandidates`, convertToFormdata({email}))
+        .then((res) => {
+          const data = res.data;
+          console.log(data);
+          dispatch({
+            type: CANDIDATE_ACTION_TYPES.READ_JOBS,
+            payload: data,
+          });
+        });
+  };
+
 export {
   validateToken,
   getCandidates,
+  getJobsByEmail,
 };

@@ -14,15 +14,14 @@ const CandidateListings = ({candidates, getCandidates}) => {
   }, []);
   const [candidateId, setCandidateId] = useState(undefined);
   const goBack = () => setCandidateId(undefined);
-  const getCandidate = (id) => candidates.find((item) => item.candidateToken === id);
   const viewCandidate = (id) => setCandidateId(id);
   return <SidebarWithHeader>
-    { !candidateId ? <Flex direction="row">
+    { !candidateId ? <Flex direction="row" gap="4">
       { candidates?.map((candidate, index) => (
         <CandidateInfo candidate={candidate} key={`candidate-list-${index}`} viewCandidate={viewCandidate}/>
       ))}
     </Flex> :
-    <CandidateExtendedInfo candidate={getCandidate(candidateId)} goBack={goBack}/>
+    <CandidateExtendedInfo candidateToken={candidateId} goBack={goBack}/>
     }
   </SidebarWithHeader>;
 };
