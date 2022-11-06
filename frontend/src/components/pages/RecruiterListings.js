@@ -61,7 +61,7 @@ const RecruiterListings = ({currentUserId, addRecruiter, getAllRecruiters, recru
       </Grid>
     </SidebarWithHeader>
 
-    <ModalForm isOpen={isOpen} onClose={onClose} submitText={t('add')} onSubmit={submitData}>
+    <ModalForm title={t('add-new-recruiter-title')} isOpen={isOpen} onClose={onClose} submitText={t('add')} onSubmit={submitData}>
       <FormControl isRequired>
         <FormLabel>{t('first-name-label')}</FormLabel>
         <Input placeholder={t('first-name-label')} onChange={(e) => onChangeData(e, 'firstName')}/>

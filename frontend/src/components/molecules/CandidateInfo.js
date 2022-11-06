@@ -6,7 +6,7 @@ import {
   Text,
   Heading,
 } from '@chakra-ui/react';
-import AvatarInfo from './AvatarInfo';
+import AvatarInfo from '../organisms/AvatarInfo';
 
 const CandidateInfo = ({candidate, viewCandidate}) => {
   return (

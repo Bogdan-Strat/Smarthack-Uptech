@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text} from '@chakra-ui/react';
 import {useTranslation} from 'react-i18next';
 
-const ModalForm = ({isOpen, onClose, onSubmit, submitText, children}) => {
+const ModalForm = ({title, isOpen, onClose, onSubmit, submitText, children}) => {
   const {t} = useTranslation();
 
   return <Modal
@@ -12,7 +12,7 @@ const ModalForm = ({isOpen, onClose, onSubmit, submitText, children}) => {
     <ModalOverlay />
     <ModalContent>
       <ModalHeader>
-        <Text fontSize="2xl">{t('add-new-recruiter-title')}</Text></ModalHeader>
+        <Text fontSize="2xl">{title}</Text></ModalHeader>
       <ModalCloseButton />
       <ModalBody pb={6}>
         {children}
