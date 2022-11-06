@@ -1,4 +1,19 @@
 {
     "title": "Smarthack app",
-    "landing-description": "Monetize your content by charging your most loyal readers and reward them loyalty points. Give back to your loyal readers by granting them access to your pre-releases and sneak-peaks."
+    "landing-description": "Monetize your content by charging your most loyal readers and reward them loyalty points. Give back to your loyal readers by granting them access to your pre-releases and sneak-peaks.",
+    "profile": "Profile",
+    "settings": "Settings",
+    "sign-out": "Sign out",
+    "home": "Home",
+    "jobs": "Jobs",
+    "candidates": "Candidates",
+    "recruiters": "Recruiters",
+    "recruiter-listings": "Recruiter listings",
+    "add-recruiter": "Add Recruiter",
+    "add-new-recruiter-title": "Add a new Recruiter",
+    "first-name-label": "First Name",
+    "last-name-label": "Last Name",
+    "email-label": "E-mail",
+    "add": "Add",
+    "cancel": "Cancel"
 }

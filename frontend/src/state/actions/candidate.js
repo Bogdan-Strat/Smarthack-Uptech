@@ -1,12 +1,12 @@
-import { BASE_URL } from "../../utils/constants";
-import { CANDIDATE_ACTION_TYPES } from "../types";
+import {BASE_URL} from '../../utils/constants';
+import {CANDIDATE_ACTION_TYPES} from '../types';
 
 const validateToken = (token) => async (dispatch) => {
   try {
     const res = await fetch(`${BASE_URL}/Candidate/validateToken`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(token),
     });
@@ -18,4 +18,4 @@ const validateToken = (token) => async (dispatch) => {
   } catch (e) {}
 };
 
-export { validateToken };
+export {validateToken};

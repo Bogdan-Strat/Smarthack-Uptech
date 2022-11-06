@@ -12,6 +12,7 @@ import {
 import {ReactComponent as OutlinedRightArrow} from '../../assets/icons/outlined-right-arrow.svg';
 import ROUTES from '../../utils/Routes.js';
 import {useTranslation} from 'react-i18next';
+
 const Landing = () => {
   const {t} = useTranslation();
   return (
