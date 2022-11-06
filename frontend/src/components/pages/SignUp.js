@@ -9,7 +9,6 @@ import {
   Image,
   HStack,
   InputRightElement,
-  InputLeftElement,
   Stack,
   Button,
   Heading,

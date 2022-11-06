@@ -4,7 +4,7 @@ import {convertToFormdata} from '../../utils/function';
 import {COMPANY_ACTION_TYPES} from '../types.js';
 
 const updateCompany = (company) => (
-  async (dispatch) => {
+  async (dispatch) =>
     axios
         .post(`${BASE_URL}/setCompanyOptions`, convertToFormdata(company), {
           headers: {'Content-Type': 'multipart/form-data'},
@@ -16,8 +16,7 @@ const updateCompany = (company) => (
             type: COMPANY_ACTION_TYPES.UPDATE,
             payload: data,
           });
-        });
-  }
+        })
 );
 
 export {
