@@ -20,5 +20,13 @@ namespace Backend.WebApp.Controllers
             await _service.AddInterview(model);
             return Ok();
         }
+
+        [HttpGet("getAllCandidateInterviews")] // tokenul candidat / token recruiter
+        public async Task<IActionResult> GetAllCandidateInterviews(Guid candidateId)
+        {
+            var model = await _service.GetAllCandidateInterviews(candidateId);
+
+            return Ok(model);
+        }
     }
 }
