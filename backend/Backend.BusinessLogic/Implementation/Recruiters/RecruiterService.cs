@@ -1,6 +1,7 @@
 ﻿using Backend.BusinessLogic.Base;
 using Backend.BusinessLogic.Implementation.Recruiters.Models;
 using Backend.BusinessLogic.Implementation.Recruiters.Validation;
+using Backend.Common.DTOs;
 using Backend.Common.Extensions;
 using Backend.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -99,5 +100,25 @@ namespace Backend.BusinessLogic.Implementation.Recruiters
             return recruiters;
         }
 
+        public async Task<List<ListItemModel<string, Guid>>> GetRecruitersForDropdown(Guid currentUserId)
+        {
+            var recruiter = await UnitOfWork.Recruiters
+                .Get()
+                .SingleOrDefaultAsync(r => r.RecruiterId == currentUserId);
+
+            var recruiters = await UnitOfWork.Recruiters
+                .Get()
+                .Include(r => r.Role)
+                .Include(r => r.Company)
+                .Where(r => r.CompanyId == recruiter.CompanyId)
+                .Select(r => new ListItemModel<string, Guid>()
+                {
+                    Value = r.RecruiterId,
+                    Text = r.FirstName + " " + r.LastName,
+                })
+                .ToListAsync();
+
+            return recruiters;
+        }
     }
 }

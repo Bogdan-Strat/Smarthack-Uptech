@@ -4,5 +4,5 @@ import candidateReducer from './candidate.js';
 
 export default combineReducers({
   authReducer,
-  candidateReducer,
+  candidate: candidateReducer,
 });
