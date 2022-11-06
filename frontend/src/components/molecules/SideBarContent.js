@@ -3,6 +3,7 @@ import {Box, CloseButton, Flex, Avatar} from '@chakra-ui/react';
 import {AiOutlineHome} from 'react-icons/ai';
 import {BiBriefcaseAlt} from 'react-icons/bi';
 import {TbUserSearch, TbUsers} from 'react-icons/tb';
+import {MdOutlineVideoCameraFront} from 'react-icons/md';
 import NavItem from '../atoms/NavItem';
 import Routes from '../../utils/Routes';
 import {useTranslation} from 'react-i18next';
@@ -17,6 +18,7 @@ export default function SidebarContent({onClose, ...otherProps}) {
     {name: t('jobs'), icon: BiBriefcaseAlt, url: Routes.JOBS},
     {name: t('candidates'), icon: TbUsers, url: Routes.CANDIDATES},
     {name: t('recruiters'), icon: TbUserSearch, url: Routes.RECRUITERS},
+    {name: 'Interviews', icon: MdOutlineVideoCameraFront, url: Routes.INTERVIEWS}
   ];
 
   return (
