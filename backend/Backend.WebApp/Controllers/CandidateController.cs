@@ -29,5 +29,21 @@ namespace Backend.WebApp.Controllers
 
             return Ok(candidate);
         }
+
+        [HttpGet("getAllCandidates")]
+        public async Task<IActionResult> GetAllCandidates()
+        {
+            var candidates =  _service.GetAllCandidates();
+            return Ok(candidates);
+        }
+
+        [HttpGet("getCandidatebyToken")]
+        public async Task<IActionResult> GetCandidateById(Guid candidateToken)
+        {
+            var candidate = _service.GetCandidateById(candidateToken);
+
+            return Ok(candidate);
+        }
+
     }
 }

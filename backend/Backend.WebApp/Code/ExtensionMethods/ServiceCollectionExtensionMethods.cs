@@ -11,6 +11,7 @@ using Backend.BusinessLogic.Implementation.Candidates;
 using Backend.BusinessLogic.Implementation.Recruiters;
 using Backend.BusinessLogic.Implementation.BuilderOption;
 using Backend.BusinessLogic.Implementation.Company;
+using Backend.BusinessLogic.Implementation.Jobs;
 
 namespace Backend.WebApp.Code.ExtensionMethods
 {
@@ -31,6 +32,7 @@ namespace Backend.WebApp.Code.ExtensionMethods
             services.AddScoped<RecruiterService>();
             services.AddScoped<BuilderOptionService>();
             services.AddScoped<CompanyService>();
+            services.AddScoped<JobService>();
             return services;
         }
 

@@ -1,65 +1,72 @@
 import React from 'react';
 import {useState} from 'react';
-import axios from 'axios';
+import {connect} from 'react-redux';
 import {
   Flex,
   Box,
   FormControl,
   FormLabel,
+  Image,
   Input,
-  Checkbox,
+  InputGroup,
+  InputRightElement,
   Stack,
-  Link,
   Button,
   Heading,
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import {useNavigate} from 'react-router-dom';
+import {signIn} from '../../state/actions/auth';
+import {ViewIcon, ViewOffIcon} from '@chakra-ui/icons';
+import ROUTES from '../../utils/Routes';
 
-const SignIn = () => {
+const SignIn = ({signIn}) => {
+  const [showPassword, setShowPassword] = useState(false);
   const [newUser, setNewUser] = useState({
     email: '',
     password: '',
   });
+  const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
-
-    let data = {};
-    axios
-        .post('https://localhost:7132/UserAccount/login', newUser)
-        .then((res) => {
-          data = res.data;
-          setNewUser({
-            email: '',
-            password: '',
-          });
-          console.log(data);
-        });
+    signIn(newUser).then(() => setTimeout(navigate(ROUTES.HOME), 0));
   };
   return (
     <Flex
       minH={'100vh'}
-      align={'center'}
-      justify={'center'}
+      direction="row"
+      justifyContent="flex-end"
       bg={useColorModeValue('gray.50', 'gray.800')}
     >
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign in to your account</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
+      <Box
+        w='50w'>
+        <Image objectFit='cover' h='100%' src='https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80' alt='Dan Abramov' />
+      </Box>
+      <Flex
+        w='50vw'
+        px="28"
+        justifyContent='center'
+        direction='column'
+        gap="12"
+        bg={useColorModeValue('white', 'gray.700')}>
+        <Stack>
+          <Heading fontSize={'xl'}>
+            Sign In
+          </Heading>
+          <Text fontSize={'md'} color={'gray.600'}>
+            Welcome back!
           </Text>
         </Stack>
         <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          p={8}
+          w='450px'
         >
-          <Stack spacing={4}>
-            <FormControl id="email">
-              <FormLabel>Email address</FormLabel>
+          <Stack gap="4">
+            <FormControl id="email" isRequired>
+              <FormLabel fontSize={'md'} color="gray.600">Email address</FormLabel>
               <Input
+                size="md"
+                borderRadius="xl"
                 type="email"
                 value={newUser.email}
                 onChange={(e) =>
@@ -67,41 +74,64 @@ const SignIn = () => {
                 }
               />
             </FormControl>
-            <FormControl id="password">
-              <FormLabel>Password</FormLabel>
-              <Input
-                type="password"
-                value={newUser.password}
-                onChange={(e) =>
-                  setNewUser({...newUser, password: e.target.value})
-                }
-              />
+            <FormControl id="password" isRequired>
+              <FormLabel fontSize={'md'} color="gray.600">Password</FormLabel>
+              <InputGroup>
+                <Input
+                  size="md"
+                  borderRadius="xl"
+                  type={showPassword ? 'text' : 'password'}
+                  value={newUser.password}
+                  onChange={(e) =>
+                    setNewUser({...newUser, password: e.target.value})
+                  }
+                />
+                <InputRightElement h={'full'}>
+                  <Button
+                    variant={'ghost'}
+                    onClick={() =>
+                      setShowPassword((showPassword) => !showPassword)
+                    }
+                  >
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
-            <Stack spacing={10}>
-              <Stack
-                direction={{base: 'column', sm: 'row'}}
-                align={'start'}
-                justify={'space-between'}
-              >
-                <Checkbox>Remember me</Checkbox>
-                <Link color={'blue.400'}>Forgot password?</Link>
-              </Stack>
+            <Stack spacing="2">
               <Button
-                onClick={submitHandler}
-                bg={'blue.400'}
+                loadingText="Submitting"
+                size="lg"
+                borderRadius="xl"
+                bg={'primary.300'}
                 color={'white'}
                 _hover={{
-                  bg: 'blue.500',
+                  bg: 'primary.500',
                 }}
+                onClick={submitHandler}
               >
                 Sign in
               </Button>
             </Stack>
           </Stack>
         </Box>
-      </Stack>
+      </Flex>
     </Flex>
   );
 };
 
-export default SignIn;
+
+const mapStateToProps = (state) => {
+  return {
+    authenticated: state.authReducer.authenticated,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    signIn: (user) => dispatch(signIn(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

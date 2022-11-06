@@ -33,9 +33,9 @@ namespace Backend.WebApp.Controllers
         }
 
         [HttpPost("getRecruiters")]
-        public async Task<IActionResult> GetRecruiters([FromBody] Guid currentUserId)
+        public async Task<IActionResult> GetRecruiters([FromBody] GetAllRecruitersModel model)
         {
-            var recruiters = await Service.GetRecruiters(currentUserId);
+            var recruiters = await Service.GetRecruiters(model);
 
             return Ok(recruiters);
         }
@@ -46,6 +46,14 @@ namespace Backend.WebApp.Controllers
             var recruiters = await Service.GetRecruitersForDropdown(currendUserId);
 
             return Ok(recruiters);
+        }
+         
+        [HttpPost("getRecruiter")]
+        public async Task<IActionResult> GetRecruiterAsAdmin([FromBody] GetRecruiterAsAdminModel model)
+        {
+            var recruiter = await Service.GetRecruiterAsAdmin(model);
+
+            return Ok(recruiter);
         }
     }
 }

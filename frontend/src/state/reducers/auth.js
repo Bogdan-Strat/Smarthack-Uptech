@@ -7,13 +7,18 @@ export const AuthState = {
 };
 
 const authReducer = (state = AuthState, action) => {
-  switch (action.type) {
-    case AUTH_ACTION_TYPES.SIGN_UP:
-      return {
-        authenticated: true,
-        currentUser: action.payload,
-        token: action.payload?.id,
-      };
+  if (action.type === AUTH_ACTION_TYPES.SIGN_UP || action.type === AUTH_ACTION_TYPES.SIGN_IN) {
+    return {
+      authenticated: true,
+      currentUser: action.payload,
+      token: action.payload?.id,
+    };
+  } else if (action.type === AUTH_ACTION_TYPES.SIGN_OUT) {
+    return {
+      authenticated: false,
+      currentUser: undefined,
+      token: undefined,
+    };
   }
   return state;
 };

@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace Backend.BusinessLogic.Implementation.Company.Models
 {
-    public class UpdateCompanyModel
+    public class CompanyDetailsModel
     {
-        public Guid CurrentUserId { get; set; }
+        public Guid CompanyId { get; set; }
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string Logo { get; set; } = null!;
-
-        public string BuilderOptionIds { get; set; }
+        public List<BuilderOptionModel> BuilderOptions { get; set; }
     }
 }

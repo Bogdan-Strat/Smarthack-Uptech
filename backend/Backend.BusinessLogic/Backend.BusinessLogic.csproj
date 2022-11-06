@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Backend.DataAccess\Backend.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Implementation\Jobs\Validations\" />
+  </ItemGroup>
+
 </Project>

@@ -75,11 +75,11 @@ namespace Backend.BusinessLogic.Implementation.Recruiters
             UnitOfWork.SaveChanges();
         }
 
-        public async Task<List<RecruiterPageModel>> GetRecruiters(Guid currentUserId)
+        public async Task<List<RecruiterPageModel>> GetRecruiters(GetAllRecruitersModel model)
         {
             var recruiter = await UnitOfWork.Recruiters
                 .Get()
-                .SingleOrDefaultAsync(r => r.RecruiterId == currentUserId);
+                .SingleOrDefaultAsync(r => r.RecruiterId == model.CurrentUserId);
 
             var recruiters = await UnitOfWork.Recruiters
                 .Get()
@@ -99,7 +99,7 @@ namespace Backend.BusinessLogic.Implementation.Recruiters
 
             return recruiters;
         }
-
+        
         public async Task<List<ListItemModel<string, Guid>>> GetRecruitersForDropdown(Guid currentUserId)
         {
             var recruiter = await UnitOfWork.Recruiters
@@ -120,5 +120,27 @@ namespace Backend.BusinessLogic.Implementation.Recruiters
 
             return recruiters;
         }
+        
+        public async Task<RecruiterPageModel> GetRecruiterAsAdmin(GetRecruiterAsAdminModel model)
+        {
+            var recruiter = await UnitOfWork.Recruiters
+                .Get()
+                .Include(r => r.Role)
+                .Include(r => r.Company)
+                .Where(r => model.RequestedRecruiterEmail == r.Email)
+                .Select(r => new RecruiterPageModel()
+                {
+                    LastName = r.LastName,
+                    FirstName = r.FirstName,
+                    Role = r.Role.Role1,
+                    Email = r.Email,
+                    CompanyName = r.Company.Name,
+                    IsLoggedFirstTime = r.IsLoggedFirstTime,
+                })
+                .SingleOrDefaultAsync();
+
+            return recruiter;
+        }
+
     }
 }
