@@ -31,7 +31,7 @@ namespace Backend.BusinessLogic
                 Logo = model.Logo,
             };
             var length = model.BuilderOptionIds.Length;
-            var optionsIds = model.BuilderOptionIds.Substring(2, length - 4);
+            var optionsIds = model.BuilderOptionIds.Substring(1, length - 2);
             //optionsIds.Remove(optionsIds.Length - 2);
             if (optionsIds.Length > 0)
             {

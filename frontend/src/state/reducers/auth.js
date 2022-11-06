@@ -7,7 +7,7 @@ export const AuthState = {
 };
 
 const authReducer = (state = AuthState, action) => {
-  if (action.type === AUTH_ACTION_TYPES || action.type === AUTH_ACTION_TYPES.SIGN_IN) {
+  if (action.type === AUTH_ACTION_TYPES.SIGN_UP || action.type === AUTH_ACTION_TYPES.SIGN_IN) {
     return {
       authenticated: true,
       currentUser: action.payload,
