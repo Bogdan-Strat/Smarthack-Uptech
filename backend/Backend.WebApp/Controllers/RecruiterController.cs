@@ -33,9 +33,9 @@ namespace Backend.WebApp.Controllers
         }
 
         [HttpPost("getRecruiters")]
-        public async Task<IActionResult> GetRecruiters([FromBody] Guid currentUserId)
+        public async Task<IActionResult> GetRecruiters([FromBody] GetAllRecruitersModel model)
         {
-            var recruiters = await Service.GetRecruiters(currentUserId);
+            var recruiters = await Service.GetRecruiters(model);
 
             return Ok(recruiters);
         }

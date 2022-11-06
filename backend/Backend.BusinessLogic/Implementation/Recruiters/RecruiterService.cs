@@ -74,11 +74,11 @@ namespace Backend.BusinessLogic.Implementation.Recruiters
             UnitOfWork.SaveChanges();
         }
 
-        public async Task<List<RecruiterPageModel>> GetRecruiters(Guid currentUserId)
+        public async Task<List<RecruiterPageModel>> GetRecruiters(GetAllRecruitersModel model)
         {
             var recruiter = await UnitOfWork.Recruiters
                 .Get()
-                .SingleOrDefaultAsync(r => r.RecruiterId == currentUserId);
+                .SingleOrDefaultAsync(r => r.RecruiterId == model.CurrentUserId);
 
             var recruiters = await UnitOfWork.Recruiters
                 .Get()
