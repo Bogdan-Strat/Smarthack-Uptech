@@ -7,6 +7,7 @@ using Backend.WebApp.Code.Base;
 using Backend.BusinessLogic;
 using Backend.BusinessLogic.Base;
 using System.Security.Claims;
+using Backend.BusinessLogic.Implementation.Candidates;
 
 namespace Backend.WebApp.Code.ExtensionMethods
 {
@@ -23,6 +24,7 @@ namespace Backend.WebApp.Code.ExtensionMethods
         {
             services.AddScoped<ServiceDependencies>();
             services.AddScoped<UserAccountService>();
+            services.AddScoped<CandidateService>();
             return services;
         }
 
