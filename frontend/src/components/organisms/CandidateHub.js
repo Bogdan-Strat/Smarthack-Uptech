@@ -11,6 +11,7 @@ const CandidateHub = () => {
 
   useEffect(() => {
     if (recruiterState) {
+      debugger;
       setIsRecruiter(true);
       const sendReq = async () =>{
         const res = await fetch(`${BASE_URL}/Interview/getRecruiterInterview`, {
@@ -18,20 +19,35 @@ const CandidateHub = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({...newInterview, hRIntiator: '52556B27-BF51-4294-8848-259A54B26D63'}),
+          body: JSON.stringify(recruiterState.token),
         });
         const data = await res.json();
-        setRecruiters(data);
+        console.log(data);
+        setInterviews(data);
       }
+      sendReq();
     }
     else{
-
+      debugger;
+      const sendReq = async () =>{
+        const res = await fetch(`${BASE_URL}/Interview/getCandidateInterview`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(candidateState.token),
+        });
+        const data = await res.json();
+        console.log(data);
+        setInterviews(data);
+      }
+      sendReq();
     }
-  });
+  },[]);
   return (
     <div>
       {/* {isRecruiter && <p>sunt recruiter</p>} */}
-      <AddInterviewForm />
+      {/* <AddInterviewForm /> */}
     </div>
   );
 };
