@@ -23,5 +23,15 @@ namespace Backend.WebApp.Controllers
 
             return Ok(model);
         }
+
+        [HttpGet("getCompanyDetails")]
+
+        public async Task<IActionResult> GetCompanyDetails(Guid companyId)
+        {
+  
+            var model = _service.GetCompanyDetails(companyId);
+
+            return Ok(model);
+        }
     }
 }

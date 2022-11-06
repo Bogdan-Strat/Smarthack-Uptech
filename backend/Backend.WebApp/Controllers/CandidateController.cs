@@ -29,5 +29,12 @@ namespace Backend.WebApp.Controllers
 
             return Ok(candidate);
         }
+
+        //[HttpGet("getAllCandidates")]
+        //public async Task<IActionResult> GetAllCandidates()
+        //{
+        //    // candidates = await _service.GetAllCandidates();
+        //    //return Ok(candidates);
+        //}
     }
 }
