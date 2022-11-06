@@ -11,7 +11,8 @@ const SignOut = ({signOut}) => {
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
-    signOut().then(() => setTimeout(navigate(ROUTES.LANDING), 0));
+    signOut();
+    setTimeout(navigate(ROUTES.LANDING), 100);
   };
   return (
     <Button
