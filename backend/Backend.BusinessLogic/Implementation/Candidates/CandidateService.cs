@@ -19,6 +19,11 @@ namespace Backend.BusinessLogic.Implementation.Candidates
             newCandidateValidator = new NewCandidateValidator(UnitOfWork);
         }
 
+        public byte[] GetImgContent(string id)
+        {
+            return Encoding.ASCII.GetBytes(UnitOfWork.Cvs.Get().FirstOrDefault(c => c.CandidateToken == Guid.Parse(id)).Cv1);
+        }
+
         public async Task<Guid> RegisterCandidate(CandidateInfoModel model)
         {
             var token = new Guid();
@@ -88,7 +93,6 @@ namespace Backend.BusinessLogic.Implementation.Candidates
                     IsPassed = c.IsPassed,
                     JobTitle = c.Job.Title,
                     JobDescription = c.Job.Description,
-                    Cv = c.Cv.Cv1,
                 }).ToList();
 
             return candidates;
@@ -110,7 +114,7 @@ namespace Backend.BusinessLogic.Implementation.Candidates
                     IsPassed = c.IsPassed,
                     JobTitle = c.Job.Title,
                     JobDescription = c.Job.Description,
-                    Cv = c.Cv.Cv1,
+
                 }).FirstOrDefault(c => c.CandidateToken == candidateToken);
 
             return candidate;

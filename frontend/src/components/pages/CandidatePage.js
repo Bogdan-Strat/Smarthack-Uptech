@@ -3,12 +3,20 @@ import {useSelector} from 'react-redux';
 import CandidateHub from '../organisms/CandidateHub.js';
 import TokenValidationPage from '../organisms/TokenValidationPage.js';
 
-const CandidatePage = () => {
+const InterviewsPage = () => {
+  const authStore = useSelector((state) => state.authReducer);
   const [isValidated, setIsValidated] = useState(false);
-  const token = useSelector((state) => state.candidate);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  //   const token = useSelector((state) => state.candidate);
+  useEffect(() => {
+    if (authStore != undefined) {
+      console.log(authStore.authenticated);
+      setIsAuthenticated(authStore.authenticated);
+    }
+  }, []);
   return (
     <>
-        {isValidated ? (
+      {isAuthenticated || isValidated ? (
           <CandidateHub />
         ) : (
           <TokenValidationPage validationSetter={setIsValidated} />
@@ -17,4 +25,4 @@ const CandidatePage = () => {
   );
 };
 
-export default CandidatePage;
+export default InterviewsPage;

@@ -1,4 +1,5 @@
 ﻿using Backend.BusinessLogic.Base;
+using Backend.BusinessLogic.Implementation.Interviews.Models;
 using Backend.BusinessLogic.Implementation.Jobs.Models;
 using Backend.Common.DTOs;
 using Backend.Entities;

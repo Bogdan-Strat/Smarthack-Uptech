@@ -7,5 +7,5 @@ export default {
   JOBS: '/jobs',
   CANDIDATES: '/candidates',
   RECRUITERS: '/recruiters',
-  CANDIDATE_PAGE: '/candidate',
+  INTERVIEWS: '/interviews',
 };
