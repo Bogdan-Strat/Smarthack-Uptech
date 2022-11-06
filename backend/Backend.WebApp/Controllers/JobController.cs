@@ -44,5 +44,12 @@ namespace Backend.WebApp.Controllers
             var models = await JobService.GetAllJobs();
             return Ok(models);
         }
+
+        [HttpGet("getMyJobs")]
+        public async Task<IActionResult> GetMyJobs(string email)
+        {
+            var models = await JobService.GetMyJobs(email);
+            return Ok(models);
+        }
     }
 }
