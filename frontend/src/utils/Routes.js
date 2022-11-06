@@ -5,4 +5,5 @@ export default {
   SIGN_UP: '/signup',
   JOBS: '/jobs',
   CANDIDATES: '/candidates',
+  RECRUITERS: '/recruiters',
 };

@@ -7,6 +7,7 @@ export default function NavItem({icon, url, children, ...otherProps}) {
       <Flex
         p="4"
         mx="4"
+        mt="4"
         borderRadius="lg"
         role="group"
         flexDir="column"

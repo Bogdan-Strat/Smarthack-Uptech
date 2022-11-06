@@ -1,11 +1,11 @@
 import React from 'react';
 import {Avatar, Box, Flex, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, VStack} from '@chakra-ui/react';
 import {FiChevronDown} from 'react-icons/fi';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 export default function Header({onOpen, ...otherProps}) {
   const {t} = useTranslation();
-  
+
   return (
     <Flex
       px={{base: 4, md: 4}}

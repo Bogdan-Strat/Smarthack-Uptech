@@ -2,18 +2,22 @@ import React from 'react';
 import {Box, CloseButton, Flex, Text} from '@chakra-ui/react';
 import {AiOutlineHome} from 'react-icons/ai';
 import {BiBriefcaseAlt} from 'react-icons/bi';
-import {BsPerson} from 'react-icons/bs';
+import {TbUserSearch, TbUsers} from 'react-icons/tb';
 import NavItem from '../atoms/NavItem';
 import Routes from '../../utils/Routes';
+import {useTranslation} from 'react-i18next';
 
-
-const LinkItems = [
-  {name: 'Home', icon: AiOutlineHome, url: Routes.HOME},
-  {name: 'Jobs', icon: BiBriefcaseAlt, url: Routes.JOBS},
-  {name: 'Candidates', icon: BsPerson, url: Routes.CANDIDATES},
-];
 
 export default function SidebarContent({onClose, ...otherProps}) {
+  const {t} = useTranslation();
+
+  const LinkItems = [
+    {name: t('home'), icon: AiOutlineHome, url: Routes.HOME},
+    {name: t('jobs'), icon: BiBriefcaseAlt, url: Routes.JOBS},
+    {name: t('candidates'), icon: TbUsers, url: Routes.CANDIDATES},
+    {name: t('recruiters'), icon: TbUserSearch, url: Routes.RECRUITERS},
+  ];
+
   return (
     <Box
       transition="3s ease"
