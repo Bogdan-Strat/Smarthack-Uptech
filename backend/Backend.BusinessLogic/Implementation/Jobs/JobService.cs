@@ -82,5 +82,21 @@ namespace Backend.BusinessLogic.Implementation.Jobs
 
             return jobs;
         }
+
+        public async Task<List<ViewMyJobModel>> GetMyJobs(string email)
+        {
+            var jobs = await UnitOfWork.Candidates.Get()
+                .Include(c => c.Job)
+                .Where(c => c.Email == email)
+                .Select(c => new ViewMyJobModel
+                {
+                    JobId = c.Job.JobId,
+                    Title = c.Job.Title,
+                    Description = c.Job.Description,
+                    Location = c.Job.Location,
+                    NrOfPositions = c.Job.NrOfPositions
+                }).ToListAsync();
+            return jobs;
+        }
     }
 }
