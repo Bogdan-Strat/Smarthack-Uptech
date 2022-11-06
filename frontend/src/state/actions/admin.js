@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {BASE_URL} from '../../utils/constants';
 import {ADMIN_ACTION_TYPES} from '../types';
 
@@ -19,4 +20,20 @@ const addNewRecruiter = (recruiterDetails) => (
     } catch (e) {}
   });
 
-export {addNewRecruiter};
+const getAllRecruiters = (currentUserId) => (
+  async (dispatch) => {
+    try {
+        axios
+          .post(`${BASE_URL}/Recruiter/getRecruiters`, {currentUserId})
+          .then((res) => {
+            const data = res.data;
+            dispatch({
+              type: ADMIN_ACTION_TYPES.GET_ALL_RECRUITERS,
+              payload: data,
+            });
+          });
+    } catch (e) {}
+  }
+);
+
+export {addNewRecruiter, getAllRecruiters};

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box, Drawer, DrawerContent, useDisclosure} from '@chakra-ui/react';
-import SidebarContent from '../molecules/SideBarContent';
+import SidebarContent from './SideBarContent';
 import Header from './Header';
 
 function SidebarWithHeader({children}) {
