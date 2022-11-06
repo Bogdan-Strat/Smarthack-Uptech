@@ -1,4 +1,5 @@
 ﻿using Backend.BusinessLogic.Base;
+using Backend.BusinessLogic.Implementation.Interviews.Models;
 using Backend.Common.Extensions;
 using Backend.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -46,5 +47,42 @@ namespace Backend.BusinessLogic.Implementation.Interviews
                 uow.SaveChanges();
             });
         }
+
+        public async Task<List<CandidateInterviewModel>> GetCandidateInterview(Guid candidateId)
+        {
+            var interviews = await UnitOfWork.Interviews.Get()
+                .Where(i => i.CandidateToken == candidateId)
+                .Select(i => new CandidateInterviewModel
+                {
+                    InterviewId = i.InterviewId,
+                    StartDate = i.StartDate,
+                    EndDate = i.EndDate,
+                    InterviewLink = i.InterviewLink,
+                    IsPassed = i.IsPassed,
+                    CandidateToken = i.CandidateToken,
+                })
+                .ToListAsync();
+            return interviews;
+        }
+
+        public async Task<List<CandidateInterviewModel>> GetRecruiterInterview(Guid recruiterId)
+        {
+            var interviews = await UnitOfWork.InterviewXrecruiters
+                .Get()
+                .Include(i => i.Interview)
+                .Where(i => i.RecruiterId == recruiterId)
+                .Select(i => new CandidateInterviewModel
+                {
+                    InterviewId = i.InterviewId,
+                    StartDate = i.Interview.StartDate,
+                    EndDate = i.Interview.EndDate,
+                    InterviewLink = i.Interview.InterviewLink,
+                    IsPassed = i.Interview.IsPassed,
+                    CandidateToken = i.Interview.CandidateToken,
+                }).ToListAsync();
+
+            return interviews;
+        }
+
     }
 }
