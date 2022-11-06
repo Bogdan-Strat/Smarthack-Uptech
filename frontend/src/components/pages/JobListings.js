@@ -3,7 +3,7 @@ import SidebarWithHeader from '../organisms/SidebarWithHeader';
 
 const JobListings = (props) => {
   return <SidebarWithHeader>
-    <h1>Home page</h1>
+    <h1>Job Listings</h1>
   </SidebarWithHeader>;
 };
 

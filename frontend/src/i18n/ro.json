@@ -1,5 +1,11 @@
 {
     "title": "Aplicatie Smarthack",
-    "landing-description": "Fa bani."
-
+    "landing-description": "Fa bani.",
+    "profile": "Profil",
+    "settings": "Setari",
+    "sign-out": "Delogare",
+    "home": "Acasa",
+    "jobs": "Joburi",
+    "candidates": "Candidati",
+    "recruiters": "Recrutori"
 }

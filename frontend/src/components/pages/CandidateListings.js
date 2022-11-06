@@ -1,10 +1,10 @@
 import React from 'react';
 import SidebarWithHeader from '../organisms/SidebarWithHeader';
 
-const JobListings = (props) => {
+const CandidateListings = (props) => {
   return <SidebarWithHeader>
-    <h1>Home page</h1>
+    <h1>Candidate Listings</h1>
   </SidebarWithHeader>;
 };
 
-export default JobListings;
+export default CandidateListings;
