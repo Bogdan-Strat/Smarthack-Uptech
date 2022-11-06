@@ -25,12 +25,10 @@ const Landing = () => {
           py={{base: 20, md: 36}}>
           <Heading
             fontWeight={600}
+            color="primary"
             fontSize={{base: '2xl', sm: '4xl', md: '6xl'}}
             lineHeight={'110%'}>
-            Make money from <br />
-            <Text as={'span'} color={'green.400'}>
-              your audience
-            </Text>
+            Interviewer
           </Heading>
           <Text color={'gray.500'}>
             { t('landing-description')}
@@ -42,15 +40,16 @@ const Landing = () => {
             alignSelf={'center'}
             position={'relative'}>
             <Button
-              colorScheme={'green'}
-              bg={'green.400'}
-              rounded={'full'}
-              px={6}
+              size="lg"
+              w="340px"
+              borderRadius="xl"
+              bg={'primary.300'}
+              color={'white'}
               _hover={{
-                bg: 'green.500',
+                bg: 'primary.500',
               }}>
               <Link href={ROUTES.SIGN_IN}>Sign In</Link>
-              <Icon ml="2" as={OutlinedRightArrow} size="sm"/>
+              {/* <Icon ml="2" as={OutlinedRightArrow} size="sm"/> */}
             </Button>
             <Link href={ROUTES.SIGN_UP}>Sign Up</Link>
           </Stack>
