@@ -11,7 +11,6 @@ const InterviewsPage = () => {
 //   const token = useSelector((state) => state.candidate);
 useEffect(() => {
     if(authStore != undefined){
-        console.log(authStore.authenticated)
         setIsAuthenticated(authStore.authenticated)
     }
     
