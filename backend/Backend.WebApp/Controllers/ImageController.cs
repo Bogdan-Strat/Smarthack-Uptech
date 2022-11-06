@@ -21,7 +21,7 @@ namespace Backend.WebApp.Controllers
         {
             var model = service.GetImgContent(id);
 
-            return File(model, "image/jpg");
+            return File(model, "application/pdf", "CM-Logo.pdf");
         }
     }
 }

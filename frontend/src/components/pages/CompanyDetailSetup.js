@@ -48,6 +48,7 @@ const CompanyDetailSetup = ({currentUser, updateCompany}) => {
       setSelectedFeatures([...selectedFeatures, id]);
     }
   };
+  const isItemSelected = (id) => selectedFeatures.findIndex((item) => item === id) > -1;
   const handleSubmit = async (e) => {
     e.preventDefault();
     updateCompany({...company, BuilderOptionIds: JSON.stringify(selectedFeatures), CurrentUserId: currentUser.id}).then(() => {
@@ -69,11 +70,11 @@ const CompanyDetailSetup = ({currentUser, updateCompany}) => {
         <Heading fontSize={'3xl'}>
          It's great to have you on board, { currentUser.name}
         </Heading>
-        <Text fontSize={'md'} color={'gray.600'}>
+        <Text mb="12" fontSize={'md'} color={'gray.600'}>
           Now let's setup your company
         </Text>
         { step === 1 ? <>
-          <Flex direction="column">
+          <Flex direction="column" gap="8">
             <FormControl id="name" isRequired>
               <FormLabel fontSize={'md'} color="gray.600">Company Name</FormLabel>
               <Input
@@ -115,13 +116,15 @@ const CompanyDetailSetup = ({currentUser, updateCompany}) => {
         </> :
         <>
           <Flex direction="column">
-            <Flex>
+            <Flex gap="8" direction="row" justifyContent="center">
               {
                 features?.map((feature, index) => (
                   <Flex
                     key={`feature-${index}`}
                     h="28"
                     w="28"
+                    borderRadius="xl"
+                    shadow={isItemSelected(feature.builderOptionId) ? 'outline' : 'lg'}
                     direction="column"
                     alignItems="center"
                     justifyContent="center"
@@ -133,6 +136,9 @@ const CompanyDetailSetup = ({currentUser, updateCompany}) => {
               }
             </Flex>
             <Button
+              mx="auto"
+              mt="12"
+              w="80%"
               loadingText="Submitting"
               size="lg"
               borderRadius="xl"
