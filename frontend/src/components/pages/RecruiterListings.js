@@ -7,6 +7,7 @@ import Card from '../atoms/Card';
 import SidebarWithHeader from '../organisms/SidebarWithHeader';
 import ModalForm from '../organisms/ModalForm';
 import {connect} from 'react-redux';
+import {addNewRecruiter} from '../../state/actions/admin';
 
 const recruiters = [
   {
@@ -42,7 +43,7 @@ const recruiters = [
   },
 ];
 
-const RecruiterListings = ({currentUserId}) => {
+const RecruiterListings = ({currentUserId, addRecruiter}) => {
   const {t} = useTranslation();
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [data, setData] = useState();
@@ -55,7 +56,11 @@ const RecruiterListings = ({currentUserId}) => {
   };
 
   const submitData = () => {
-    console.log('data is:::', data, currentUserId);
+    addRecruiter({
+      ...data,
+      currentUserId,
+    });
+    onClose();
   };
 
   return <>
@@ -107,13 +112,14 @@ const RecruiterListings = ({currentUserId}) => {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserId: state.authReducer.currentUser.id
+    currentUserId: state.authReducer.currentUser.id,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
+    addRecruiter: (recruiter) => dispatch(addNewRecruiter(recruiter)),
   };
 };
 

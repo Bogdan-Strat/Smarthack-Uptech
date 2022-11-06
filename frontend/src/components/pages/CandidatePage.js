@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {Flex, Input, ButtonGroup, FormLabel, Button} from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {validateToken as validateAction, validateToken} from '../../state/actions/candidate.js';
 
 const CandidatePage = () => {
