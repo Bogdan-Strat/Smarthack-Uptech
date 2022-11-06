@@ -62,5 +62,25 @@ namespace Backend.BusinessLogic.Implementation.Jobs
                 })
                 .ToListAsync();
         }
+
+        public async Task<List<ViewJobModel>> GetAllJobs()
+        {           
+            var jobs = await UnitOfWork.Jobs.Get()
+                .Include(j => j.JobTypeNavigation)
+                .Include(j => j.JobLevelNavigation)
+                .Select(j => new ViewJobModel
+                {
+                    JobId = j.JobId,
+                    Title = j.Title,
+                    Description = j.Description,
+                    Location = j.Location,
+                    JobLevel = j.JobLevelNavigation.JobLevel1,
+                    JobType = j.JobTypeNavigation.JobType1,
+                    NrOfPositions = j.NrOfPositions
+
+                }).ToListAsync();
+
+            return jobs;
+        }
     }
 }
