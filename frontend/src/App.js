@@ -14,7 +14,7 @@ import CompanyDetailSetup from './components/pages/CompanyDetailSetup.js';
 import JobListings from './components/pages/JobListings.js';
 import CandidateListings from './components/pages/CandidateListings.js';
 import RecruiterListings from './components/pages/RecruiterListings.js';
-import CandidatePage from './components/pages/CandidatePage.js';
+import InterviewsPage from './components/pages/CandidatePage.js';
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
           <Route path={ROUTES.RECRUITERS} element={<RecruiterListings />}/>
           <Route path={ROUTES.HOME} element={<PrivateRoute><HomePage/></PrivateRoute>}/>
           <Route path={ROUTES.SETUP} element={<PrivateRoute><CompanyDetailSetup/></PrivateRoute>}/>
-          <Route path={ROUTES.CANDIDATE_PAGE} element={<CandidatePage/>}/>
+          <Route path={ROUTES.INTERVIEWS} element={<InterviewsPage/>}/>
           {/*  <Route path={`${ROUTES.PROFILE}/:uid`} element={<PrivateRoute><Profile/></PrivateRoute>} />  */}
         </Routes>
       </div>

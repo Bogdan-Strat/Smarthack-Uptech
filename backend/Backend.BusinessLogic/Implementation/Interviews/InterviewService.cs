@@ -1,11 +1,11 @@
 ﻿using Backend.BusinessLogic.Base;
 using Backend.Common.Extensions;
 using Backend.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Backend.BusinessLogic.Implementation.Interviews
 {
@@ -22,7 +22,8 @@ namespace Backend.BusinessLogic.Implementation.Interviews
             ExecuteInTransaction(uow =>
             {
                 _newInterviewValidator.Validate(model).ThenThrow();
-                var candidate = uow.Candidates.Get().FirstOrDefault(c => c.Email == model.CandidateEmail);
+                var candidate = uow.Candidates
+                .Get().FirstOrDefault(c => c.Email == model.CandidateEmail);
 
                 var interview = new Interview()
                 {

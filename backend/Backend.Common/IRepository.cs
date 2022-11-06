@@ -13,6 +13,5 @@ namespace Backend.Common
         TEntity Insert(TEntity entity);
         TEntity Update(TEntity entitty);
         void Delete(TEntity entity);
-        object Include(Func<object, object> value);
     }
 }
