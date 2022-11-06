@@ -21,16 +21,16 @@ namespace Backend.WebApp.Controllers
             return Ok();
         }
 
-        [HttpGet("getCandidateInterview")]
-        public async Task<IActionResult> GetCandidateInterview(Guid candidateId)
+        [HttpPost("getCandidateInterview")]
+        public async Task<IActionResult> GetCandidateInterview([FromBody]Guid candidateId)
         {
             var model = await _service.GetCandidateInterview(candidateId);
             return Ok(model);
 
         }
 
-        [HttpGet("getRecruiterInterview")]
-        public async Task<IActionResult> GetRecruiterInterview(Guid recruiterId)
+        [HttpPost("getRecruiterInterview")]
+        public async Task<IActionResult> GetRecruiterInterview([FromBody]Guid recruiterId)
         {
             var model = await _service.GetRecruiterInterview(recruiterId);
             return Ok(model);
