@@ -67,6 +67,7 @@ namespace Backend.BusinessLogic
                 Name = recruiter.FirstName + " " + recruiter.LastName,
                 Role = recruiter.Role.Role1,
                 IsAuthenticated = true,
+                IsLoggedFirst = recruiter.IsLoggedFirstTime
             };
 
             return currentUser;

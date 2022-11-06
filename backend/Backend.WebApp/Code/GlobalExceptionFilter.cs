@@ -18,7 +18,7 @@ namespace Backend.WebApp.Code
         }
 
         public override void OnException(ExceptionContext context)
-        {
+       {
             context.ExceptionHandled = true;
             var descriptor = context.ActionDescriptor as ControllerActionDescriptor;
             switch (context.Exception)
