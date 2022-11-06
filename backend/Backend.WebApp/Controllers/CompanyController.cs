@@ -17,9 +17,19 @@ namespace Backend.WebApp.Controllers
         }
 
         [HttpPost("setCompanyOptions")]
-        public async Task<IActionResult> GetBuilderOptions(UpdateCompanyModel model)
+        public async Task<IActionResult> GetBuilderOptions([FromForm]UpdateCompanyModel model)
         {
             _service.UpdateCompany(model);
+
+            return Ok(model);
+        }
+
+        [HttpGet("getCompanyDetails")]
+
+        public async Task<IActionResult> GetCompanyDetails(Guid companyId)
+        {
+  
+            var model = _service.GetCompanyDetails(companyId);
 
             return Ok(model);
         }

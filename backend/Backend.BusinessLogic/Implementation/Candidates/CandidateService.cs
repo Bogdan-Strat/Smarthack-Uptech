@@ -1,4 +1,5 @@
 ﻿using Backend.BusinessLogic.Base;
+using Backend.BusinessLogic.Implementation.Candidates.Models;
 using Backend.Common.Extensions;
 using Backend.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -71,5 +72,49 @@ namespace Backend.BusinessLogic.Implementation.Candidates
 
             return model;
         }
+
+        public List<CandidateModel> GetAllCandidates()
+        {
+            var candidates =  UnitOfWork.Candidates.Get()
+                .Include(c => c.Job)
+                .Include(c => c.Cv)
+                .Select(c => new CandidateModel
+                {
+                    CandidateToken = c.CandidateToken,
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Email = c.Email,
+                    JobId = c.Job.JobId,
+                    IsPassed = c.IsPassed,
+                    JobTitle = c.Job.Title,
+                    JobDescription = c.Job.Description,
+                    Cv = c.Cv.Cv1,
+                }).ToList();
+
+            return candidates;
+
+        }
+
+        public CandidateModel GetCandidateById(Guid candidateToken)
+        {
+            var candidate = UnitOfWork.Candidates.Get()
+                .Include(c => c.Job)
+                .Include(c => c.Cv)
+                .Select(c => new CandidateModel
+                {
+                    CandidateToken = c.CandidateToken,
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Email = c.Email,
+                    JobId = c.Job.JobId,
+                    IsPassed = c.IsPassed,
+                    JobTitle = c.Job.Title,
+                    JobDescription = c.Job.Description,
+                    Cv = c.Cv.Cv1,
+                }).FirstOrDefault(c => c.CandidateToken == candidateToken);
+
+            return candidate;
+        }
+
     }
 }

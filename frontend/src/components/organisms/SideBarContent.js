@@ -6,6 +6,7 @@ import {TbUserSearch, TbUsers} from 'react-icons/tb';
 import NavItem from '../atoms/NavItem';
 import Routes from '../../utils/Routes';
 import {useTranslation} from 'react-i18next';
+import SignOutButton from '../atoms/SignOutButton';
 
 
 export default function SidebarContent({onClose, ...otherProps}) {
@@ -37,6 +38,7 @@ export default function SidebarContent({onClose, ...otherProps}) {
           {link.name}
         </NavItem>
       ))}
+      <SignOutButton/>
     </Box>
   );
 };

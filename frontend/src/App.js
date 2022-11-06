@@ -10,6 +10,7 @@ import SignInPage from './components/pages/SignIn.js';
 import HomePage from './components/pages/Home.js';
 import {connect} from 'react-redux';
 import PrivateRoute from './components/PrivateRoute.js';
+import CompanyDetailSetup from './components/pages/CompanyDetailSetup.js';
 import JobListings from './components/pages/JobListings.js';
 import CandidateListings from './components/pages/CandidateListings.js';
 import RecruiterListings from './components/pages/RecruiterListings.js';
@@ -30,6 +31,7 @@ function App() {
           {/* TODO: restrict this path to admins only */}
           <Route path={ROUTES.RECRUITERS} element={<RecruiterListings />}/>
           <Route path={ROUTES.HOME} element={<PrivateRoute><HomePage/></PrivateRoute>}/>
+          <Route path={ROUTES.SETUP} element={<PrivateRoute><CompanyDetailSetup/></PrivateRoute>}/>
           <Route path={ROUTES.CANDIDATE_PAGE} element={<CandidatePage/>}/>
           {/*  <Route path={`${ROUTES.PROFILE}/:uid`} element={<PrivateRoute><Profile/></PrivateRoute>} />  */}
         </Routes>

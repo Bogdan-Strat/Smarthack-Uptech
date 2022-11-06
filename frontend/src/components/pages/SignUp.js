@@ -6,6 +6,7 @@ import {
   FormLabel,
   Input,
   InputGroup,
+  Image,
   HStack,
   InputRightElement,
   Stack,
@@ -18,52 +19,67 @@ import {
 import {useState} from 'react';
 import ROUTES from '../../utils/Routes.js';
 import {ViewIcon, ViewOffIcon} from '@chakra-ui/icons';
+import {useNavigate} from 'react-router-dom';
+import {ReactComponent as UserCircle} from '../../assets/icons/user-circle.svg';
 import {signUp as signUpAction} from '../../state/actions/auth.js';
 import {connect} from 'react-redux';
 
-function Signup({signUp}) {
+function Signup({signUp, authenticated}) {
   const [showPassword, setShowPassword] = useState(false);
+  const [showCheckedPassword, setShowCheckedPassword] = useState(false);
+  const navigate = useNavigate();
   const [newUser, setNewUser] = useState({
     firstName: '',
     lastName: '',
-    username: '',
     email: '',
     password: '',
+    checkedPassword: '',
   });
 
+  const passwordMatch = newUser.password === newUser.checkedPassword;
   const submitHandler = async (e) => {
     e.preventDefault();
-    signUp(newUser);
+    const {checkedPassword, ..._user} = newUser;
+    signUp(_user).then(() => setTimeout(navigate(ROUTES.SETUP), 0));
   };
 
   return (
     <Flex
       minH={'100vh'}
-      align={'center'}
-      justify={'center'}
+      direction="row"
+      justifyContent="flex-end"
       bg={useColorModeValue('gray.50', 'gray.800')}
     >
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'} textAlign={'center'}>
-            Sign up
+      <Box
+        w='50w'>
+        <Image objectFit='cover' h='100%' src='https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80' alt='Dan Abramov' />
+      </Box>
+      <Flex
+        w='50vw'
+        px="28"
+        justifyContent='center'
+        direction='column'
+        gap="12"
+        bg={useColorModeValue('white', 'gray.700')}>
+        <Stack>
+          <Heading fontSize={'xl'}>
+            Getting Started
           </Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool features ✌️
+          <Text fontSize={'md'} color={'gray.600'}>
+            Create an account to enjoy all of our cool features
           </Text>
         </Stack>
         <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          p={8}
+          w='450px'
         >
-          <Stack spacing={4}>
-            <HStack>
-              <Box>
+          <Stack gap="4">
+            <HStack gap="4">
+              <Box flexGrow="1">
                 <FormControl id="firstName" isRequired>
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel fontSize={'md'} color="gray.600">First Name</FormLabel>
                   <Input
+                    size="md"
+                    borderRadius="xl"
                     type="text"
                     value={newUser.firstName}
                     onChange={(e) =>
@@ -72,32 +88,35 @@ function Signup({signUp}) {
                   />
                 </FormControl>
               </Box>
-              <Box>
+              <Box flexGrow="1">
                 <FormControl id="lastName">
-                  <FormLabel>Last Name</FormLabel>
+                  {/* <InputGroup> */}
+                  <FormLabel fontSize={'md'} color="gray.600">Last Name</FormLabel>
+                  {/* <InputLeftElement
+                      pointerEvents='none'
+                    >
+                      <UserCircle color='gray.100' />
+                    </InputLeftElement> */}
+
                   <Input
+                    // placeholder='Last Name'
+                    size="md"
+                    borderRadius="xl"
                     type="text"
                     value={newUser.lastName}
                     onChange={(e) =>
                       setNewUser({...newUser, lastName: e.target.value})
                     }
                   />
+                  {/* </InputGroup> */}
                 </FormControl>
               </Box>
             </HStack>
-            <FormControl id="username" isRequired>
-              <FormLabel>Username:</FormLabel>
-              <Input
-                type="text"
-                value={newUser.username}
-                onChange={(e) =>
-                  setNewUser({...newUser, username: e.target.value})
-                }
-              />
-            </FormControl>
             <FormControl id="email" isRequired>
-              <FormLabel>Email address</FormLabel>
+              <FormLabel fontSize={'md'} color="gray.600">Email address</FormLabel>
               <Input
+                size="md"
+                borderRadius="xl"
                 type="email"
                 value={newUser.email}
                 onChange={(e) =>
@@ -106,9 +125,11 @@ function Signup({signUp}) {
               />
             </FormControl>
             <FormControl id="password" isRequired>
-              <FormLabel>Password</FormLabel>
+              <FormLabel fontSize={'md'} color="gray.600">Password</FormLabel>
               <InputGroup>
                 <Input
+                  size="md"
+                  borderRadius="xl"
                   type={showPassword ? 'text' : 'password'}
                   value={newUser.password}
                   onChange={(e) =>
@@ -127,34 +148,64 @@ function Signup({signUp}) {
                 </InputRightElement>
               </InputGroup>
             </FormControl>
-            <Stack spacing={10} pt={2}>
+            <FormControl id="checkedPassword" isRequired>
+              <FormLabel fontSize={'md'} color="gray.600">Confirm Password</FormLabel>
+              <InputGroup>
+                <Input
+                  size="md"
+                  borderRadius="xl"
+                  type={showCheckedPassword ? 'text' : 'password'}
+                  value={newUser.checkedPassword}
+                  onChange={(e) =>
+                    setNewUser({...newUser, checkedPassword: e.target.value})
+                  }
+                />
+                <InputRightElement h={'full'}>
+                  <Button
+                    variant={'ghost'}
+                    onClick={() =>
+                      setShowCheckedPassword((showCheckedPassword) => !showCheckedPassword)
+                    }
+                  >
+                    {showCheckedPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+            <Stack spacing="2">
+              <Text fontSize={'md'} mb="2" color={'gray.400'}>
+              By joining, I agree to terms and conditions
+              </Text>
               <Button
                 loadingText="Submitting"
                 size="lg"
+                borderRadius="xl"
                 bg={'primary.300'}
                 color={'white'}
                 _hover={{
-                  bg: 'blue.500',
+                  bg: 'primary.500',
                 }}
                 onClick={submitHandler}
+                isDisabled={!passwordMatch}
               >
                 Sign up
               </Button>
             </Stack>
-            <Stack pt={6}>
-              <Text align={'center'}>
-                Already a user? <Link color={'blue.400'} href={ROUTES.SIGN_IN}>Login</Link>
+            <Stack>
+              <Text fontSize={'md'} m="0" color={'gray.600'}>
+            Already have an account? <Link color={'primary.300'} href={ROUTES.SIGN_IN}>Sign In</Link>
               </Text>
             </Stack>
           </Stack>
         </Box>
-      </Stack>
+      </Flex>
     </Flex>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
+    authenticated: state.authReducer.authenticated,
   };
 };
 
