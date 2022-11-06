@@ -5,6 +5,7 @@ import companyReducer from './company.js';
 
 export default combineReducers({
   authReducer,
+  candidate: candidateReducer,
   companyReducer,
   candidateReducer,
 });

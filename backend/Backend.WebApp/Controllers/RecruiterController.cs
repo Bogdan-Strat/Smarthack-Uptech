@@ -40,6 +40,14 @@ namespace Backend.WebApp.Controllers
             return Ok(recruiters);
         }
 
+        [HttpPost("fetchRecruiters")]
+        public async Task<IActionResult> FetchRecruiters([FromBody] Guid currendUserId)
+        {
+            var recruiters = await Service.GetRecruitersForDropdown(currendUserId);
+
+            return Ok(recruiters);
+        }
+         
         [HttpPost("getRecruiter")]
         public async Task<IActionResult> GetRecruiterAsAdmin([FromBody] GetRecruiterAsAdminModel model)
         {
