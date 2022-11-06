@@ -1,10 +1,42 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import CandidateInfo from '../molecules/CandidateInfo';
 import SidebarWithHeader from '../organisms/SidebarWithHeader';
+import {
+  Flex,
+} from '@chakra-ui/react';
+import {connect} from 'react-redux';
+import {getCandidates} from '../../state/actions/candidate';
+import CandidateExtendedInfo from '../organisms/CandidateExtendedInfo';
 
-const CandidateListings = (props) => {
+const CandidateListings = ({candidates, getCandidates}) => {
+  useEffect(() => {
+    getCandidates();
+  }, []);
+  const [candidateId, setCandidateId] = useState(undefined);
+  const goBack = () => setCandidateId(undefined);
+  const viewCandidate = (id) => setCandidateId(id);
   return <SidebarWithHeader>
-    <h1>Candidate Listings</h1>
+    { !candidateId ? <Flex direction="row" gap="4">
+      { candidates?.map((candidate, index) => (
+        <CandidateInfo candidate={candidate} key={`candidate-list-${index}`} viewCandidate={viewCandidate}/>
+      ))}
+    </Flex> :
+    <CandidateExtendedInfo candidateToken={candidateId} goBack={goBack}/>
+    }
   </SidebarWithHeader>;
 };
 
-export default CandidateListings;
+const mapStateToProps = (state) => {
+  return {
+    candidates: state.candidateReducer.candidates,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    getCandidates: () => dispatch(getCandidates()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CandidateListings);
