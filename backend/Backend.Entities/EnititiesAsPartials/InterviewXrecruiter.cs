@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Backend.WebApp.Entities
+namespace Backend.Entities.Entities
 {
-    public partial class Test : IEntity
+    public partial class InterviewXrecruiter : IEntity
     {
         
     }

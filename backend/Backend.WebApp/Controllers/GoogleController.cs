@@ -1,4 +1,4 @@
-﻿using Backend.Common.Constants;
+﻿//using Backend.Common.Constants;
 using Backend.DataAccess;
 using Backend.WebApp.Code.Base;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,7 @@ namespace Backend.WebApp.Controllers
         [HttpGet("getPlaces")]
         public async Task<IActionResult> GetPlaces(string searchPlace)
         {
-            const string queryKey = Constants.ConnectionString;
+            //const string queryKey = Constants.ConnectionString;
             Client.BaseAddress = new Uri("https://google.com/api/");
             var response = await Client.GetAsync($"https://maps.googleapis.com/maps/api/place/autocomplete/json?key=putKey&input={searchPlace}");
             if (!response.IsSuccessStatusCode)

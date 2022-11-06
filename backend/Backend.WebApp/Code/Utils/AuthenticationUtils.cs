@@ -12,7 +12,6 @@ namespace WorkoutBuddy.WebApp.Code.Utils
             {
                 new Claim("Id", user.Id.ToString()),
                 new Claim(ClaimTypes.Name, $"{user.Name}"),
-                new Claim("UserName", $"{user.Username}"),
                 new Claim(ClaimTypes.Email, user.Email),
             };
 

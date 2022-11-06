@@ -13,6 +13,7 @@ import PrivateRoute from './components/PrivateRoute.js';
 import JobListings from './components/pages/JobListings.js';
 import CandidateListings from './components/pages/CandidateListings.js';
 import RecruiterListings from './components/pages/RecruiterListings.js';
+import CandidatePage from './components/pages/CandidatePage.js';
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
           <Route path={ROUTES.CANDIDATES} element={<CandidateListings />}/>
           {/* TODO: restrict this path to admins only */}
           <Route path={ROUTES.RECRUITERS} element={<RecruiterListings />}/>
+          <Route path={ROUTES.HOME} element={<PrivateRoute><HomePage/></PrivateRoute>}/>
+          <Route path={ROUTES.CANDIDATE_PAGE} element={<CandidatePage/>}/>
           {/*  <Route path={`${ROUTES.PROFILE}/:uid`} element={<PrivateRoute><Profile/></PrivateRoute>} />  */}
         </Routes>
       </div>
