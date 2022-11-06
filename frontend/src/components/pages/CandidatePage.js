@@ -7,11 +7,10 @@ const InterviewsPage = () => {
   const authStore = useSelector((state) => state.authReducer);
   const [isValidated, setIsValidated] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  //   const token = useSelector((state) => state.candidate);
-  useEffect(() => {
-    if (authStore != undefined) {
-      console.log(authStore.authenticated);
-      setIsAuthenticated(authStore.authenticated);
+//   const token = useSelector((state) => state.candidate);
+useEffect(() => {
+    if(authStore != undefined){
+        setIsAuthenticated(authStore.authenticated)
     }
   }, []);
   return (
