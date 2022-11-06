@@ -39,5 +39,13 @@ namespace Backend.WebApp.Controllers
 
             return Ok(recruiters);
         }
+
+        [HttpPost("getRecruiter")]
+        public async Task<IActionResult> GetRecruiterAsAdmin([FromBody] GetRecruiterAsAdminModel model)
+        {
+            var recruiter = await Service.GetRecruiterAsAdmin(model);
+
+            return Ok(recruiter);
+        }
     }
 }
