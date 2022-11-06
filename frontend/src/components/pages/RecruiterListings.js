@@ -17,7 +17,6 @@ const RecruiterListings = ({currentUserId, addRecruiter, getAllRecruiters, recru
   useEffect(() => {
     getAllRecruiters(currentUserId);
   }, []);
-  
 
   const onChangeData = (e, field) => {
     setData({
@@ -54,7 +53,6 @@ const RecruiterListings = ({currentUserId, addRecruiter, getAllRecruiters, recru
                 <Flex direction="column" gap="2">
                   <IconButton icon={<AiOutlineArrowRight/>} color="white.300" bg="primary.300" _hover={{bg: 'primary.500'}} />
                   {/* <IconButton icon={<AiOutlineEdit/>}/> */}
-                {/* {rec.isLoggedFirstTime && <Tag size="md" color="white" bg="red.100">Inactive</Tag>} */}
                 </Flex>
               </Box>
             </Flex>
@@ -96,6 +94,5 @@ const mapDispatchToProps = (dispatch) => {
     getAllRecruiters: (currentUserId) => dispatch(getAllRecruitersAction(currentUserId)),
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecruiterListings);

@@ -23,7 +23,7 @@ const addNewRecruiter = (recruiterDetails) => (
 const getAllRecruiters = (currentUserId) => (
   async (dispatch) => {
     try {
-        axios
+      axios
           .post(`${BASE_URL}/Recruiter/getRecruiters`, {currentUserId})
           .then((res) => {
             const data = res.data;

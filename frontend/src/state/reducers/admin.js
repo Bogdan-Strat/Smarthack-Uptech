@@ -1,7 +1,7 @@
 import {ADMIN_ACTION_TYPES} from '../types';
 
 export const AdminState = {
-    recruiters: [],
+  recruiters: [],
 };
 
 const adminReducer = (state = AdminState, action) => {

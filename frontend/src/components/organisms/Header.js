@@ -2,8 +2,9 @@ import React from 'react';
 import {Avatar, Box, Flex, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, VStack} from '@chakra-ui/react';
 import {FiChevronDown} from 'react-icons/fi';
 import {useTranslation} from 'react-i18next';
+import {connect} from 'react-redux';
 
-export default function Header({onOpen, ...otherProps}) {
+function Header({onOpen, currentUser, ...otherProps}) {
   const {t} = useTranslation();
 
   return (
@@ -42,7 +43,7 @@ export default function Header({onOpen, ...otherProps}) {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">{currentUser.name}</Text>
                   <Text fontSize="xs" color="secondary.300">
                     Admin
                   </Text>
@@ -66,3 +67,17 @@ export default function Header({onOpen, ...otherProps}) {
     </Flex>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.authReducer.currentUser,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
