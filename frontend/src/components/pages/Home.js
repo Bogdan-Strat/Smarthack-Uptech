@@ -1,9 +1,10 @@
+import {Text} from '@chakra-ui/react';
 import React from 'react';
 import SidebarWithHeader from '../organisms/SidebarWithHeader';
 
 const Home = (props) => {
   return <SidebarWithHeader>
-    <h1>Home page</h1>
+    <Text fontSize="4xl">Welcome!</Text>
   </SidebarWithHeader>;
 };
 

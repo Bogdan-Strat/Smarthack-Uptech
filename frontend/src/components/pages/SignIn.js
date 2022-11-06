@@ -30,14 +30,13 @@ const SignIn = ({signIn, isLoggedFirstTime}) => {
   const navigate = useNavigate();
 
   const checkFirstTimeLoggedIn = () => {
-    console.log('in sign in:', isLoggedFirstTime)
+    console.log('in sign in:', isLoggedFirstTime);
     if (isLoggedFirstTime === true) {
-      navigate(ROUTES.JOBS)
+      navigate(ROUTES.JOBS);
+    } else {
+      navigate(ROUTES.HOME);
     }
-    else {
-      navigate(ROUTES.HOME)
-    }
-  }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();

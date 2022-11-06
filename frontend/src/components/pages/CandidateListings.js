@@ -1,9 +1,10 @@
+import {Text} from '@chakra-ui/react';
 import React from 'react';
 import SidebarWithHeader from '../organisms/SidebarWithHeader';
 
 const CandidateListings = (props) => {
   return <SidebarWithHeader>
-    <h1>Candidate Listings</h1>
+    <Text fontSize="4xl">All Candidates</Text>
   </SidebarWithHeader>;
 };
 

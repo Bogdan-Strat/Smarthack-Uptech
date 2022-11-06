@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { BASE_URL } from "../../utils/constants";
+import React, {useEffect, useState} from 'react';
+import {BASE_URL} from '../../utils/constants';
 
 import {
   FormControl,
@@ -8,7 +8,7 @@ import {
   Select,
   Input,
   GridItem,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 const AddInterviewForm = () => {
   const [recruiters, setRecruiters] = useState([]);
@@ -17,11 +17,11 @@ const AddInterviewForm = () => {
   useEffect(() => {
     const fetchRecruiters = async () => {
       const res = await fetch(`${BASE_URL}/Recruiter/fetchRecruiters`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify("52556B27-BF51-4294-8848-259A54B26D63"),
+        body: JSON.stringify('52556B27-BF51-4294-8848-259A54B26D63'),
       });
       const data = await res.json();
       setRecruiters(data);
@@ -31,7 +31,7 @@ const AddInterviewForm = () => {
 
   return (
     <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
+      <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
         New interview form
       </Heading>
       <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -41,7 +41,7 @@ const AddInterviewForm = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: "gray.50",
+            color: 'gray.50',
           }}
         >
           Recruiters
@@ -72,7 +72,7 @@ const AddInterviewForm = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: "gray.50",
+            color: 'gray.50',
           }}
           mt="2%"
         >
@@ -96,7 +96,7 @@ const AddInterviewForm = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: "gray.50",
+            color: 'gray.50',
           }}
           mt="2%"
         >
@@ -120,7 +120,7 @@ const AddInterviewForm = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: "gray.50",
+            color: 'gray.50',
           }}
           mt="2%"
         >
