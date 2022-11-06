@@ -7,6 +7,7 @@ using Backend.WebApp.Code.Base;
 using Backend.BusinessLogic;
 using Backend.BusinessLogic.Base;
 using System.Security.Claims;
+using Backend.BusinessLogic.Implementation.Recruiters;
 using Backend.BusinessLogic.Implementation.BuilderOption;
 using Backend.BusinessLogic.Implementation.Company;
 
@@ -25,6 +26,7 @@ namespace Backend.WebApp.Code.ExtensionMethods
         {
             services.AddScoped<ServiceDependencies>();
             services.AddScoped<UserAccountService>();
+            services.AddScoped<RecruiterService>();
             services.AddScoped<BuilderOptionService>();
             services.AddScoped<CompanyService>();
             return services;
