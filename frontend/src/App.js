@@ -14,7 +14,7 @@ import CompanyDetailSetup from './components/pages/CompanyDetailSetup.js';
 import JobListings from './components/pages/JobListings.js';
 import CandidateListings from './components/pages/CandidateListings.js';
 import RecruiterListings from './components/pages/RecruiterListings.js';
-import InterviewsPage from './components/pages/CandidatePage.js';
+import InterviewsPage from './components/pages/InterviewsPage.js';
 
 function App() {
   return (

@@ -31,6 +31,7 @@ namespace Backend.BusinessLogic.Implementation.Jobs
                 Location = model.Location,
                 NrOfPositions = model.NrOfPositions,
                 IsDeleted = false,
+                RecruiterId = model.CurrentUserId
             };
 
             UnitOfWork.Jobs.Insert(job);
