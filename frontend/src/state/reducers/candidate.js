@@ -22,6 +22,9 @@ const candidateReducer = (state = CandidateState, action) => {
         candidates: action.payload,
       };
     }
+    case CANDIDATE_ACTION_TYPES.APPLY: {
+      return state;
+    }
   }
   return state;
 };

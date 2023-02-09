@@ -22,9 +22,8 @@ const CandidateHub = () => {
         });
         const data = await res.json();
         setRecruiters(data);
-      }
-    }
-    else{
+      };
+    } else {
 
     }
   });

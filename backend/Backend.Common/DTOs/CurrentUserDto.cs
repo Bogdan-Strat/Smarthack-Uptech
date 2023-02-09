@@ -11,7 +11,7 @@ namespace Backend.Common.DTOs
         public string Name { get; set; }
         public bool IsAuthenticated { get; set; }
         public string Role { get; set; }
-        public bool I
+        public bool IsLoggedFirst { get; set; }
 
     }
 }

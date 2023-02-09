@@ -66,10 +66,24 @@ const getCV = (token) =>
     });
   };
 
+  const applyForJob = (submitData) =>
+  async (dispatch) => {
+    axios.get(`${BASE_URL}/Candidate/postCandidateInfo`, convertToFormdata(submitData))
+        .then((res) => {
+          const data = res.data;
+          console.log(data);
+          dispatch({
+            type: CANDIDATE_ACTION_TYPES.APPLY,
+            payload: data,
+          });
+        });
+  };
+
 
 export {
   validateToken,
   getCandidates,
   getJobsByEmail,
   getCV,
+  applyForJob,
 };

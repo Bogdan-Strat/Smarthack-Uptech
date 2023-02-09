@@ -7,8 +7,9 @@ import {getAllJobs as getAllJobsAction} from '../../state/actions/job';
 import Card from '../atoms/Card';
 import SidebarWithHeader from '../organisms/SidebarWithHeader';
 import ModalForm from '../organisms/ModalForm';
+import { applyForJob as applyForJobAction } from '../../state/actions/candidate';
 
-const JobListings = ({jobs, getAllJobs}) => {
+const JobListings = ({jobs, currentUserId, getAllJobs, applyForJob}) => {
   const [showMore, setShowMore] = useState(true);
   const [isOpenJob, setIsOpen] = useState(Array(jobs.length).fill(false));
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -30,6 +31,13 @@ const JobListings = ({jobs, getAllJobs}) => {
       [field]: e.target.value,
     });
   };
+
+  const applyButton = () => {
+    applyForJob({
+      ...data,
+      currentUserId,
+    })
+  }
 
   return <><SidebarWithHeader>
     <Text fontSize="4xl">All Jobs</Text>
@@ -58,7 +66,7 @@ const JobListings = ({jobs, getAllJobs}) => {
             rounded='md'
             shadow='md'>
             <Button size="md" mb="2" bg="primary.300" _hover={{bg: 'primary.500'}} color="white.300" onClick={onOpen}>Apply</Button>
-            
+
             <Flex flexDirection="row" w="40%" justifyContent="space-between">
               <Flex flexDirection="row">
                 <MdLocationPin size="20"/>
@@ -75,34 +83,35 @@ const JobListings = ({jobs, getAllJobs}) => {
       </>
     ))}
   </SidebarWithHeader>
-  
-    <ModalForm title="Apply for this job" isOpen={isOpen} onClose={onClose} submitText={"Submit"} onSubmit={() => {}}>
-      <FormControl isRequired>
-        <FormLabel>First Name</FormLabel>
-        <Input placeholder={"First Name"} onChange={(e) => onChangeData(e, 'firstName')}/>
-      </FormControl>
 
-      <FormControl mt={4} isRequired>
-        <FormLabel >Last Name</FormLabel>
-        <Input placeholder={"Last Name"} onChange={(e) => onChangeData(e, 'lastName')}/>
-      </FormControl>
+  <ModalForm title="Apply for this job" isOpen={isOpen} onClose={onClose} submitText={'Submit'} onSubmit={applyButton}>
+    <FormControl isRequired>
+      <FormLabel>First Name</FormLabel>
+      <Input placeholder={'First Name'} onChange={(e) => onChangeData(e, 'firstName')}/>
+    </FormControl>
 
-      <FormControl mt={4} isRequired>
-        <FormLabel>Email</FormLabel>
-        <Input placeholder={"Email"} onChange={(e) => onChangeData(e, 'email')}/>
-      </FormControl>
+    <FormControl mt={4} isRequired>
+      <FormLabel >Last Name</FormLabel>
+      <Input placeholder={'Last Name'} onChange={(e) => onChangeData(e, 'lastName')}/>
+    </FormControl>
 
-      <FormControl mt={4} isRequired>
-        <FormLabel>CV</FormLabel>
-        <Input type="file"  onChange={(e) => onChangeData(e, 'cv')}/>
-      </FormControl>
-    </ModalForm>
-    </>;
+    <FormControl mt={4} isRequired>
+      <FormLabel>Email</FormLabel>
+      <Input placeholder={'Email'} onChange={(e) => onChangeData(e, 'email')}/>
+    </FormControl>
+
+    <FormControl mt={4} isRequired>
+      <FormLabel>CV</FormLabel>
+      <Input type="file" onChange={(e) => onChangeData(e, 'cv')}/>
+    </FormControl>
+  </ModalForm>
+  </>;
 };
 
 const mapStateToProps = (state) => {
   return {
     jobs: state.jobReducer.jobs,
+    currentUserId: state.authReducer.currentUser.id,
   };
 };
 
@@ -110,6 +119,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     getAllJobs: () => dispatch(getAllJobsAction()),
+    applyForJob: (user) => dispatch(applyForJobAction(user)),
   };
 };
 
